@@ -1,0 +1,40 @@
+.breadcrumbNav {
+    padding: 10px 0;
+    margin-top: 10px;
+  }
+  
+  .breadcrumbList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .breadcrumbItem {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  
+  .breadcrumbItem:not(:last-child)::after {
+    content: "/";
+    margin: 0 10px;
+    color: #666;
+  }
+  
+  .breadcrumbItem a {
+    text-decoration: none;
+    color: #0070f3;
+  }
+  
+  .breadcrumbItem a:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumbItem:last-child {
+    color: #333;
+    font-weight: bold;
+  }

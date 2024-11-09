@@ -1,0 +1,43 @@
+.productGallery {
+    width: 100%;
+}
+
+.productPhoto {
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Aspecto cuadrado */
+}
+
+.imagePhoto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productThumbs {
+    margin-top: 10px;
+}
+
+.thumbWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* Aspecto 4:3 */
+}
+
+.imageThumbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,132 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sideMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  color: #000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sideMenu.open {
+  transform: translateX(0);
+}
+
+.closeButton {
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between; /* Espacia los elementos entre los extremos */
+  align-items: center; /* Centra verticalmente */
+  
+}
+
+.closeButton h2 {
+  margin-right: auto; /* Empuja el h2 hacia la izquierda */
+  margin-left: 0;
+}
+
+.closeButton svg {
+  margin-left: auto; /* Empuja el svg hacia la derecha */
+  margin-right: 0;
+}
+
+
+
+.menuItems ul {
+  list-style: none;
+  margin: 0;
+}
+
+.menuItems li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Asegura que el texto y la flecha estén en extremos opuestos */
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+}
+
+.menuItems li:hover {
+  background-color: #f2f2f2;
+}
+
+.menuItems a {
+  text-decoration: none; /* Quita la decoración del enlace */
+  color: inherit; /* Asegúrate de que el color herede el color del texto */
+}
+ 
+
+
+.menuCategory{
+  font-weight: 100;
+  font-size: 15px;
+}
+
+.bi-chevron-right {
+  margin-left: auto; /* Esto empuja el ícono hacia el final del contenedor */
+  transition: transform 0.3s ease;
+}
+
+/* Estilo del submenú oculto inicialmente */
+.subMenu {
+  list-style: none;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+  background-color: #f9f9f9;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Al activar, mostrar el submenú */
+.subMenu.open {
+  max-height: 300px; /* Ajustar según la cantidad de elementos en el submenú */
+}
+
+/* Estilos para los ítems del submenú */
+.subMenu li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.subMenu li:hover {
+  background-color: #eee;
+}
+
+/* Espacio adicional para los items del submenú */
+.menuItems {
+  margin-bottom: 10px;
+}
+
+/* El ícono rota al desplegarse el submenú */
+.rotate {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}

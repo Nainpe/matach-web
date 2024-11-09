@@ -1,0 +1,76 @@
+/* src/components/ui/MobileFilter/MobileFilter.module.css */
+
+.filterToggleButton {
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease; /* Suavizar cambio de color */
+  font-family:'Outfit', sans-serif;
+}
+
+.filterToggleButton:hover {
+  background-color: #005bb5;
+}
+
+/* Animación de la apertura y cierre del filtro */
+.filterContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: max-height 0.5s ease; /* Animación de la altura */
+}
+
+.filterContainer.open {
+  max-height: 500px; /* Altura máxima cuando está abierto */
+}
+
+.filterTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.filterSection {
+  margin-bottom: 20px;
+}
+
+.brandItem {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.applyButton {
+  padding: 10px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  font-family:'Outfit', sans-serif;
+}
+
+.applyButton:hover {
+  background-color: #005bb5;
+}
+
+.categoryList {
+  list-style: none;
+
+}
+
+.categoryList li a {
+  text-decoration: none;
+  color: #000;
+
+}

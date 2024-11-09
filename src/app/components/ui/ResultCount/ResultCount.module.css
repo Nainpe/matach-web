@@ -1,0 +1,7 @@
+/* src/components/ui/ResultCount/ResultCount.module.css */
+.resultCount {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  

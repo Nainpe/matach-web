@@ -1,0 +1,52 @@
+{
+  "name": "matach-shop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "ts-node src/seed/seed.ts",
+    "limpiar-db": "ts-node  src/seed/limpiar-base-de-datos-db.ts",
+    "product-image": "ts-node src/seed/añadir-product-img.ts",
+    "subcategory": "ts-node src/seed/subcategory.ts",
+    "tag": "ts-node src/seed/tag-create.ts",
+    "pruebas": "ts-node src/seed/pruebas.ts",
+    "categoria": "ts-node src/seed/categorias.ts",
+    "usuarios": "ts-node src/seed/usarios-seed.ts"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.0",
+    "@prisma/client": "^5.19.1",
+    "@react-email/components": "^0.0.27",
+    "bcryptjs": "^2.4.3",
+    "cookies-next": "^4.3.0",
+    "install": "^0.13.0",
+    "lucide-react": "^0.453.0",
+    "next": "^15.0.1",
+    "next-auth": "^5.0.0-beta.25",
+    "nodemailer": "^6.9.16",
+    "npm": "^10.9.0",
+    "prisma": "^5.22.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.1",
+    "react-icons": "^5.3.0",
+    "swiper": "^11.1.14",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.11",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

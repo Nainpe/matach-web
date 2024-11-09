@@ -1,0 +1,56 @@
+.pageContainer {
+  display: flex;
+  gap: 20px; /* Espacio entre el filtro y la lista de productos */
+  padding-top: 10px;
+}
+
+/* Estilo para el filtro de escritorio */
+.filterContainer {
+  flex: 1;
+  max-width: 300px; /* Anchura máxima del filtro */
+}
+
+/* Estilo para el Cardlistview */
+.cardlistContainer {
+  flex: 3;
+}
+
+.mainCategory {
+  padding-top: 200px;
+}
+
+
+@media (max-width: 700px) {
+  .mainCategory {
+    padding-top: 250px;
+  }
+}
+
+/* Mostrar solo en pantallas grandes */
+@media (max-width: 700px) {
+  .filterContainer {
+    display: none; /* Ocultar el filtro en pantallas pequeñas */
+  }
+}
+
+/* Mostrar solo en pantallas pequeñas (móvil) */
+.mobileFilterShow {
+  display: none; /* Ocultar el filtro móvil por defecto */
+}
+
+@media (max-width: 700px) {
+  .mobileFilterShow {
+    display: block; /* Mostrar el filtro móvil solo en pantallas pequeñas */
+  }
+}
+
+/* Mostrar el filtro de escritorio en pantallas grandes */
+@media (min-width: 701px) {
+  .filterContainer {
+    display: block; /* Mostrar el filtro de escritorio en pantallas grandes */
+  }
+
+  .mobileFilterShow {
+    display: none; /* Ocultar el filtro móvil en pantallas grandes */
+  }
+}

@@ -1,0 +1,197 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+  DISCONTINUED
+}
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum Role {
+  Admin
+  User
+}
+
+model Product {
+  id             String          @id @default(cuid())
+  name           String
+  slug           String          @unique
+  description    String?
+  sku            String          @unique
+  price          Int             @default(0)
+  discount       Float?
+  dimensions     String?
+  releaseDate    DateTime?
+  warranty       Int?
+  imageUrl       String?
+  stock          Int             @default(0)
+  status         ProductStatus   @default(IN_STOCK)
+  brandId        String
+  categoryId     String
+  
+  supplierId     String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  specifications Specification[]
+  brand          Brand           @relation(fields: [brandId], references: [id])
+  category       Category        @relation(fields: [categoryId], references: [id])
+  supplier       Supplier?       @relation(fields: [supplierId], references: [id])
+  sales          Sale[]
+  images         ProductImage[]
+  tags           ProductTag[]
+}
+
+model Tag {
+  id       String       @id @default(cuid())
+  name     String       @unique
+  products ProductTag[]
+}
+
+model ProductTag {
+  productId String
+  tagId     String
+  product   Product @relation(fields: [productId], references: [id])
+  tag       Tag     @relation(fields: [tagId], references: [id])
+
+  @@id([productId, tagId])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Specification {
+  id        String  @id @default(cuid())
+  productId String
+  key       String
+  value     String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[]
+}
+
+model Category {
+  id               String     @id @default(cuid())
+  name             String     @unique
+  slug             String     @unique
+  description      String?
+  parentCategoryId String?
+  parentCategory   Category?  @relation("Subcategories", fields: [parentCategoryId], references: [id])
+  subcategories    Category[] @relation("Subcategories")
+  products         Product[]
+}
+
+model Supplier {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  contactEmail String?
+  phoneNumber  String?
+  address      String?
+  products     Product[]
+}
+
+model Coupon {
+  id            String   @id @default(uuid())
+  code          String   @unique
+  discountType  String   // Ejemplo: 'percentage' o 'fixed'
+  discountValue Float    // Ejemplo: 20.0 (20%) o 500.0 (descuento fijo en pesos)
+  expiresAt     DateTime
+}
+
+
+model Sale {
+  id         String   @id @default(cuid())
+  productId  String
+  userId     String
+  quantity   Int
+  totalPrice Float
+  saleDate   DateTime @default(now())
+  status     OrderStatus @default(PENDING)
+  product    Product  @relation(fields: [productId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id             String    @id @default(cuid())
+  role           Role @default(User)
+  firstName      String
+  lastName       String
+  phoneNumber    String    @unique
+  address        String
+  locality       String
+  province       String
+  postalCode     String?
+  password       String
+  image          String?
+  name           String?
+  dni            String
+  email          String   @unique
+  emailVerified   Boolean  @default(false)
+  accounts       Account[]
+  sessions       Session[]
+  purchasedProducts Sale[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}

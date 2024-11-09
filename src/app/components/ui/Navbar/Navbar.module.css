@@ -1,0 +1,71 @@
+.searchIcon, .userIcon, .cartIcon, .menuIcon {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.cartIcon {
+  position: relative;
+}
+
+.cartCounter {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  color: #ffffff; /* Color de texto blanco */
+  font-size: 14px; /* Tamaño de la fuente */
+  font-weight: bold; /* Negrita para que el número sea más visible */
+  display: flex; /* Centra el texto dentro del círculo */
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* styles/Navbar.module.css */
+.userMenu {
+  position: absolute;
+  background-color: #fff;
+  top: 50px; /* Ajusta según tu diseño */
+  right: 10;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: none;
+  padding: 10px; /* Se asegura de que el padding no se vea afectado */
+}
+
+.userMenu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo gris suave */
+  border-radius: 8px; /* Igual que el contenedor para que el borde sea coherente */
+  z-index: -1; /* Asegura que el fondo esté debajo del contenido */
+}
+
+.userMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userMenu li {
+  margin: 10px 0;
+}
+
+.userMenu li a {
+  text-decoration: none;
+  color: #333; /* Color predeterminado de las letras */
+  padding: 8px 12px;
+  display: block;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.userMenu li a:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo gris suave al hacer hover */
+}
+
+.userIcon:hover .userMenu {
+  display: block;
+}

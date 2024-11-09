@@ -1,0 +1,118 @@
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: solid 2px #f0f0f0;
+    text-align: center;
+    background-color: #fff;
+    padding-bottom: 15px;
+    overflow: hidden;
+    height: 400px;
+  }
+  
+  .imageBox {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; 
+    position: relative;
+    overflow: hidden; 
+  }
+  
+  .imageBox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    padding: 5%;
+  }
+  
+  .description {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  
+  .titleProducto {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: -webkit-box; /* Habilita el uso de líneas limitadas */
+    -webkit-box-orient: vertical; /* Orientación vertical */
+    overflow: hidden; /* Evita que el texto se desborde */
+    line-clamp: 3; /* Limita a 3 líneas */
+  }
+
+  .titleProducto a {
+    text-decoration: none;
+    color: #000;
+    padding: 0 10px;
+  }
+  
+  .priceProduct {
+    text-align: center;
+    padding: 0 10px;
+  }
+  
+  .price {
+    font-size: 20px;
+    font-weight: 500;
+    /* Ajusta según sea necesario */
+  }
+  
+  .priceContext {
+    font-size: 9px;
+    margin: 2px 0;
+  }
+  
+  .priceBottom {
+    margin-top: auto;
+  }
+  
+
+  .verMasButton {
+    display: block;
+    width: 88%;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+    margin: 5px auto 0;
+    border-radius: 4px;
+  }
+  
+  .verMasButton:hover {
+    background-color: #cc0000;
+  }
+  
+  .textCarrousel {
+    color: #f00;
+    margin-bottom: 15px;
+    font-size: 30px;
+  }
+  
+  .sectionSlider {
+    margin-top: 100px;
+    display: flex;
+    text-align: left;
+  }
+  
+  .sectionSliderText h3 {
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+    text-decoration: none;
+    height: auto;
+    margin-top: 50px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+

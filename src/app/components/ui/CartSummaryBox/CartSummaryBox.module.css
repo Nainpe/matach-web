@@ -1,0 +1,133 @@
+/* src/app/components/ui/CartSummaryBox/CartSummaryBox.module.css */
+
+.summaryBox {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-height: 270px;
+}
+
+.resumen {
+    margin-bottom: 10px;
+}
+
+.summaryDetails {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.summaryDetails p {
+    margin: 0.5rem 0;
+}
+
+.discount {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.finalPrice {
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.couponInput {
+    width: 100%; /* Este valor ya está al 100% del contenedor */
+    padding: 0.7rem 1rem; /* Aumenta el padding para hacer el campo más alto */
+    font-size: 1rem; /* Aumenta el tamaño de la fuente */
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+
+.applyCouponButton {
+    background-color: #5cb85c;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.applyCouponButton:hover {
+    background-color: #4cae4c;
+}
+
+.errorMessage {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.totalPriceContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 200;
+}
+
+.totalPriceContainerPrice {
+    font-weight: 300;
+}
+
+.subtototalPrice {
+    color: #000;
+}
+
+.discountContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6b7280;
+    font-weight: 200;
+}
+
+.discountContainerNumber {
+    color: #000;
+
+}
+
+.divider {
+    
+    height: 1px;
+    background-color: #d1d5db;
+    margin: 10px 0;
+    margin-top: 10px;
+}
+
+.subtotalContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    color: #6b7280;
+
+    font-weight: 200;
+    
+}
+
+
+.checkoutButton {
+    background-color: #FF1744;
+    color: #fff;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.checkoutButton:hover {
+    background-color: #025aa5;
+}

@@ -1,0 +1,49 @@
+.pageContainer {
+    display: flex;
+    gap: 20px; /* Espacio entre el filtro y la lista de productos */
+    padding-top: 10px;
+  }
+  
+  /* Estilo para el filtro de escritorio */
+  .filterContainer {
+    flex: 1;
+    max-width: 300px; /* Anchura máxima del filtro */
+  }
+  
+  /* Estilo para el Cardlistview */
+  .cardlistContainer {
+    flex: 3;
+  }
+  
+  .mainSearch {
+    padding-top: 200px;
+  }
+  
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 700px) {
+    .mainSearch {
+      padding-top: 80px;
+    }
+  
+    /* Ocultar el filtro en pantallas pequeñas */
+    .filterContainer {
+      display: none;
+    }
+  
+    /* Mostrar el filtro móvil solo en pantallas pequeñas */
+    .mobileFilterShow {
+      display: block;
+    }
+  }
+  
+  /* Mostrar el filtro de escritorio en pantallas grandes */
+  @media (min-width: 701px) {
+    .filterContainer {
+      display: block;
+    }
+  
+    .mobileFilterShow {
+      display: none;
+    }
+  }
+  

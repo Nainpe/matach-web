@@ -1,0 +1,92 @@
+.button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Aumentamos el z-index para asegurar que esté por encima de todo */
+}
+
+.modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    z-index: 1001; /* Aseguramos que el contenido del modal esté por encima del overlay */
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.listItem {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.interestNote {
+    color: #f44336;
+    font-size: 14px;
+}
+
+.noInterestNote {
+    color: #4CAF50;
+    font-size: 14px;
+}
+
+.totalPrice {
+    font-weight: bold;
+}
+
+.closeButton {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td { /* Cambié a .table th y .table td */
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }

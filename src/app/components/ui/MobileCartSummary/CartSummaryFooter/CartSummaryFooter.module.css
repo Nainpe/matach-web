@@ -1,0 +1,58 @@
+.footerContainer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 10;
+  }
+  
+  .summaryRow,
+  .summaryRowTotal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  
+  .summaryRowTotal {
+    font-weight: bold;
+    color: #1a73e8;
+  }
+  
+  .couponContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+  
+  .couponInput {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  
+  .applyCouponButton {
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .applyCouponButton:hover {
+    background-color: #155bb5;
+  }
+  
+  .errorText {
+    color: #e63946;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  

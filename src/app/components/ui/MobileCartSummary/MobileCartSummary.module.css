@@ -1,0 +1,126 @@
+.productContainer {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #333;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.image {
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 10px 0;
+  color: #333;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a73e8;
+  margin: 8px 0;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+.quantityLabel {
+  margin-right: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantityButton {
+  background: #e0e0e0;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: background-color 0.3s;
+}
+
+.quantityButton:hover {
+  background: #d4d4d4;
+}
+
+.quantityInput {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: none;
+  background-color: transparent;
+}
+
+.divider {
+  height: 1px;
+  background-color: #d1d5db;
+  margin: 10px 0;
+  margin-top: 10px;
+}
+
+
+.total {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+}
+
+.totalLabel {
+  color: #666;
+}
+
+.totalAmount {
+  color: #333;
+}
