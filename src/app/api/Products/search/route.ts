@@ -1,37 +1,34 @@
-// app/api/products/search/route.ts
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma'; // Asegúrate de que la ruta de tu instancia de Prisma sea correcta
+import prisma from '@/lib/prisma'; 
 
-// Definimos el tipo de request para GET
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const name = searchParams.get('name'); // Capturamos el parámetro de búsqueda 'name'
+  const name = searchParams.get('name'); 
 
   if (!name) {
     return NextResponse.json({ error: 'El parámetro "name" es requerido' }, { status: 400 });
   }
 
   try {
-    // Búsqueda más flexible usando 'contains' en varios campos
     const products = await prisma.product.findMany({
       where: {
         OR: [
           {
             name: {
-              contains: name, // Búsqueda parcial en el nombre
-              mode: 'insensitive', // Ignora mayúsculas/minúsculas
+              contains: name, 
+              mode: 'insensitive', 
             },
           },
           {
             description: {
-              contains: name, // Búsqueda parcial en la descripción
+              contains: name, 
               mode: 'insensitive',
             },
           },
           {
             brand: {
               name: {
-                contains: name, // Búsqueda parcial en la marca
+                contains: name, 
                 mode: 'insensitive',
               },
             },
@@ -41,7 +38,7 @@ export async function GET(request: Request) {
               some: {
                 tag: {
                   name: {
-                    contains: name, // Búsqueda parcial en las etiquetas
+                    contains: name, 
                     mode: 'insensitive',
                   },
                 },
@@ -55,7 +52,7 @@ export async function GET(request: Request) {
         name: true,
         price: true,
         description: true,
-        images: true, // Asegúrate de que este campo esté bien configurado en tu modelo
+        images: true, 
         brand: {
           select: {
             name: true,
@@ -64,12 +61,10 @@ export async function GET(request: Request) {
       },
     });
 
-    // Si no se encuentran productos, retornamos un mensaje amigable
     if (products.length === 0) {
       return NextResponse.json({ message: 'No se encontraron productos que coincidan con la búsqueda' }, { status: 200 });
     }
 
-    // Retornamos los productos encontrados
     return NextResponse.json(products);
   } catch (error) {
     console.error('Error en la búsqueda de productos:', error);
