@@ -54,6 +54,11 @@ const Navbar = () => {
   const toggleSubmenu = (submenuId: string) =>
     setActiveSubmenu(activeSubmenu === submenuId ? null : submenuId)
 
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/'; // Redirect to home page and force a full page refresh
+  };
+
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
@@ -100,7 +105,7 @@ const Navbar = () => {
                       isAuntheticated && (
                       <div>
                         <li><Link href="/perfil"><FaUserAlt /> Mi Cuenta</Link></li>
-                        <li><button onClick={ () => logout() }><GoSignOut /> Cerrar sesión</button></li>
+                        <li><button onClick={handleLogout}><GoSignOut /> Cerrar sesión</button></li>
                       </div>
                     
                   )}
@@ -123,16 +128,16 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <div className={styles.cartIcon}>
-              <Link href="/carrito">
-                {isClient && totalQuantity > 0 && (
-                  <div className={styles.cartCounter}>
-                    {totalQuantity}
-                  </div>
-                )}
-                <ShoppingCart className="icon" size={30} color="#fff" strokeWidth={2} />
-              </Link>
-            </div>
+            <Link href="/carrito">
+              <div className={styles.cartIcon}>
+                  {isClient && totalQuantity > 0 && (
+                    <div className={styles.cartCounter}>
+                      {totalQuantity}
+                    </div>
+                  )}
+                  <ShoppingCart className="icon" size={30} color="#fff" strokeWidth={2} />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

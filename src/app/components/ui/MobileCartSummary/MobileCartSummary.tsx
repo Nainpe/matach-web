@@ -1,7 +1,6 @@
-// MobileCartSummary.tsx
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './MobileCartSummary.module.css';
@@ -9,26 +8,74 @@ import { CartProduct } from '@/types';
 import { useCartStore } from '@/store/cartStore';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import CartSummaryFooter from './CartSummaryFooter/CartSummaryFooter';
+import { toast } from 'react-hot-toast';
+import { fetchUpdatedStock } from '@/actions/carrito/UpdateStock';
 
 export default function MobileCartSummary() {
   const cartItems: CartProduct[] = useCartStore((state) => state.cartItems);
   const updateCartItemQuantity = useCartStore((state) => state.updateCartItemQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const [stockLevels, setStockLevels] = useState<{ [key: string]: number }>({});
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 
-  const handleIncrement = (id: string, quantity: number) => {
-    updateCartItemQuantity(id, quantity + 1);
-  };
+  // Fetch stock levels and initialize quantities
+  useEffect(() => {
+    const fetchInitialStock = async () => {
+      const initialStock: { [key: string]: number } = {};
+      const initialQuantities: { [key: string]: number } = {};
+      for (const item of cartItems) {
+        try {
+          const stock = await fetchUpdatedStock(item.id);
+          initialStock[item.id] = stock;
+          initialQuantities[item.id] = item.quantity;
+        } catch (error) {
+          console.error(`Error fetching stock for item ${item.id}:`, error);
+          initialStock[item.id] = item.quantity; // Fallback to current quantity
+          initialQuantities[item.id] = item.quantity;
+        }
+      }
+      setStockLevels(initialStock);
+      setQuantities(initialQuantities);
+    };
 
-  const handleDecrement = (id: string, quantity: number) => {
-    if (quantity > 1) {
-      updateCartItemQuantity(id, quantity - 1);
+    fetchInitialStock();
+  }, [cartItems]);
+
+  const handleIncrement = (id: string) => {
+    if (quantities[id] < (stockLevels[id] || 0)) {
+      const newQuantity = quantities[id] + 1;
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad aumentada.`);
+    } else {
+      toast.error(`No puedes agregar más de ${stockLevels[id]} unidades.`);
     }
   };
 
-  // Define la función applyDiscount para manejar el descuento
+  const handleDecrement = (id: string) => {
+    if (quantities[id] > 1) {
+      const newQuantity = quantities[id] - 1;
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad reducida.`);
+    }
+  };
+
+  const handleQuantityChange = (id: string, newQuantity: number) => {
+    if (newQuantity >= 1 && newQuantity <= (stockLevels[id] || 0)) {
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad actualizada.`);
+    } else if (newQuantity > (stockLevels[id] || 0)) {
+      toast.error(`No puedes agregar más de ${stockLevels[id]} unidades.`);
+    } else {
+      toast.error('La cantidad mínima es 1.');
+    }
+  };
+
   const applyDiscount = (coupon: string) => {
     if (coupon === 'DESCUENTO10') {
-      const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const subtotal = cartItems.reduce((acc, item) => acc + item.price * (quantities[item.id] || 1), 0);
       return subtotal * 0.1;
     }
     return 0;
@@ -69,20 +116,21 @@ export default function MobileCartSummary() {
               <span className={styles.quantityLabel}>Cant:</span>
               <div className={styles.quantityControls}>
                 <button
-                  onClick={() => handleDecrement(item.id, item.quantity)}
+                  onClick={() => handleDecrement(item.id)}
                   className={styles.quantityButton}
                 >
                   <FaMinus className="w-4 h-4" />
                 </button>
                 <input
                   type="number"
-                  min="1"
-                  value={item.quantity}
-                  readOnly
+                  value={quantities[item.id] || 1}
+                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
                   className={styles.quantityInput}
+                  min="1"
+                  max={stockLevels[item.id] || 1}
                 />
                 <button
-                  onClick={() => handleIncrement(item.id, item.quantity)}
+                  onClick={() => handleIncrement(item.id)}
                   className={styles.quantityButton}
                 >
                   <FaPlus className="w-4 h-4" />
@@ -93,7 +141,7 @@ export default function MobileCartSummary() {
             <div className={styles.total}>
               <span className={styles.totalLabel}>Total:</span>
               <span className={styles.totalAmount}>
-                ${(item.price * item.quantity).toLocaleString()}
+                ${(item.price * (quantities[item.id] || 1)).toLocaleString()}
               </span>
             </div>
           </div>

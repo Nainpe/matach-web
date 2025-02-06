@@ -1,0 +1,51 @@
+.navContainer {
+  width: 100%;
+  background-color: #fff; /* Fondo oscuro */
+  border-bottom: 2px solid #f0f0f0; /* Borde más oscuro */
+  margin-bottom: 15px;
+  overflow-x: auto; /* Permite el scroll horizontal */
+}
+
+.navScroll {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #444; 
+}
+
+.navScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.navScroll::-webkit-scrollbar-track {
+  background: #444; 
+}
+
+.navScroll::-webkit-scrollbar-thumb {
+  background-color: #007bff;
+  border-radius: 5px;
+  border: 2px solid #444; 
+}
+
+.navItem {
+  flex: 0 0 auto; 
+  font-size: 14px;
+  color: #6c757d;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  font-weight: lighter;
+}
+
+.navItem:hover {
+  color: #ff0000; 
+}
+
+.active {
+  color: #ff0000; 
+  font-weight: bold;
+  border-bottom: 2px solid #ff0000; 
+}

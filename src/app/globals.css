@@ -1,4 +1,11 @@
-/* src/styles/globals.css */
+:root {
+  --font-outfit: 'Outfit', sans-serif; /* Usamos la variable de la fuente */
+}
+
+html {
+  font-family: var(--font-outfit);
+  font-size: 16px; 
+}
 
 *,
 *::before,
@@ -9,8 +16,7 @@
 }
 
 body {
-  margin: 0;
-  font-family:'Outfit', sans-serif;
+  margin: 0;  
   background-color: #f7f7f7;
 }
 
@@ -501,6 +507,7 @@ font-size: 30px;
   background-color: #fff;
   height: auto;
   padding-bottom: 20px;
+  padding-top:20px;
 }
 
 .footer-content {
@@ -692,7 +699,7 @@ font-size: 30px;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 756px) {
   .box-truck, .box-card, .box-support {
     height: auto; /* Ajusta la altura de las cajas para que se adapten a su contenido */
     margin-top: 20px;
@@ -919,10 +926,9 @@ font-size: 30px;
 }
 
 .icon-card-payment {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  width: 45px;
+  height: 40px;
+  margin-left: 15px;
 }
 .icon-title-container {
   display: flex;
@@ -960,9 +966,10 @@ font-size: 30px;
 }
 
 .delivery-icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+
 }
 
 .delivery-info {
@@ -978,7 +985,7 @@ font-size: 30px;
 
 .shipping-title {
   margin-bottom: 5px; /* Ajusta el espacio entre los textos según sea necesario */
-  font-size:medium;
+  font-size:18px;
 }
 
 .shipping-description {
@@ -1046,7 +1053,6 @@ font-size: 30px;
 
 
 
-/* Mostrar solo en pantallas grandes (más de 725px) */
 .show-on-desktop {
   display: none;
 }
@@ -1057,7 +1063,6 @@ font-size: 30px;
   }
 }
 
-/* Mostrar solo en pantallas pequeñas (menos de 725px) */
 .show-on-mobile {
   display: block;
 }
@@ -1130,4 +1135,76 @@ font-size: 30px;
     padding-top: 70px ;
     display: flex;
   }
+}
+
+
+.containerResumen {
+  display: flex;
+}
+
+.page-resumen-main {
+  padding-top:150px;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+  .page-resumen-main {
+    padding-top: 80px;
+    padding-bottom: 30px;
+  }
+}
+
+
+
+
+.perfil-container {
+  display: flex;
+ 
+}
+
+@media (max-width: 750px) {
+  .perfil-container {
+    flex-direction: column;
+  }
+}
+
+.pedidos-container {
+  width: 100%;
+}
+
+.Tuinformacion-container {
+  width:100%;
+}
+
+.compra-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* En pantallas pequeñas (celulares), los elementos estarán en columna */
+@media (max-width: 768px) {
+  .compra-container {
+    flex-direction: column; /* Apila los elementos en una sola columna */
+    gap: 30px; /* Aumenta el espacio entre ellos */
+  }
+}
+
+
+.compra-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 20px; 
+}
+
+.compra-container-payment {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.verify-container {
+  padding-top: 170px;
+  padding-bottom:50px;
 }

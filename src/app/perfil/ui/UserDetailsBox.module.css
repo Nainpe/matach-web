@@ -1,0 +1,62 @@
+.userDetailsContainer {
+  flex: 1;
+  padding: 1rem  ;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-right: 20px;
+  width: 400px;
+}
+
+.userDetailsTitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.header {
+  font-size: 12px; 
+  font-weight: lighter;
+  margin-bottom: 5px; 
+  color: #999;
+}
+
+.content {
+  font-size: 0.9rem; 
+}
+
+.borderBottom {
+  border-bottom: 1px solid #ddd;
+}
+
+.buttonLink {
+  text-decoration: none;
+}
+
+.editarDatos {
+  color: #f00;
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-top:10px;
+}
+
+.editButton:hover {
+  background-color: #005bb5;
+}
+
+.addressList {
+  list-style: none;
+}
+
+@media (max-width: 750px ) {
+  .userDetailsContainer {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 15px;
+  }
+}

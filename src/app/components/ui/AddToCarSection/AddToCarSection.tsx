@@ -1,12 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'; // Importar toaster
 import { useCartStore } from '@/store/cartStore'
 import styles from './AddToCartSection.module.css'
-import { getCookie, setCookie } from 'cookies-next'
-import ApprovalMessage from '../MessageStack/ApprovalMessage.tsx/ApprovalMessage'
-import ErrorMessage from '../MessageStack/ErrorMessage/ErrorMessage'
-import MessageStack from '../MessageStack/MessageStack'
 
 interface AddToCartSectionProps {
   productId: string
@@ -31,15 +28,8 @@ interface ApiResponse {
   relatedProducts: Product[]
 }
 
-interface Message {
-  id: number
-  text: string
-}
-
 export default function AddToCartSection({ productId, stock, slug }: AddToCartSectionProps) {
   const [quantity, setQuantity] = useState(1)
-  const [errorMessages, setErrorMessages] = useState<Message[]>([])
-  const [approvalMessages, setApprovalMessages] = useState<Message[]>([])
   const [remainingStock, setRemainingStock] = useState(stock)
   const [productDetails, setProductDetails] = useState<Product | null>(null)
   const addToCart = useCartStore((state) => state.addToCart)
@@ -51,29 +41,16 @@ export default function AddToCartSection({ productId, stock, slug }: AddToCartSe
         const response = await fetch(`/api/Products/${slug}`)
         if (response.ok) {
           const data: ApiResponse = await response.json()
-          console.log('Respuesta completa de la API:', data)
-          
           if (data.product) {
-            const product = data.product
-            setProductDetails({
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              images: product.images,
-              stock: product.stock
-            })
-            console.log('Detalles del producto establecidos:', product)
+            setProductDetails(data.product)
           } else {
-            console.error('No se encontraron datos del producto en la respuesta')
-            showErrorMessage('No se pudo cargar la información del producto')
+            toast.error('No se pudo cargar la información del producto')
           }
         } else {
-          console.error('Error en la respuesta de la API')
-          showErrorMessage('Error al cargar el producto')
+          toast.error('Error al cargar el producto')
         }
       } catch (error) {
-        console.error('Error al obtener los detalles del producto:', error)
-        showErrorMessage('Error al cargar el producto')
+        toast.error('Error al cargar el producto')
       }
     }
 
@@ -89,60 +66,37 @@ export default function AddToCartSection({ productId, stock, slug }: AddToCartSe
   const incrementQuantity = () => {
     if (quantity < remainingStock) {
       setQuantity((prevQuantity) => prevQuantity + 1)
-      setErrorMessages([])
     } else {
-      showErrorMessage('No hay más stock disponible para agregar')
+      toast.error('No hay más stock disponible para agregar')
     }
   }
 
   const decrementQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1))
-    setErrorMessages([])
   }
 
-  const showApprovalMessage = (text: string) => {
-    const newMessage: Message = { id: Date.now(), text }
-    setApprovalMessages((prevMessages) => [...prevMessages, newMessage])
-    setTimeout(() => {
-      setApprovalMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== newMessage.id))
-    }, 3000)
-  }
-
-  const showErrorMessage = (text: string) => {
-    const newMessage: Message = { id: Date.now(), text }
-    setErrorMessages((prevMessages) => [...prevMessages, newMessage])
-    setTimeout(() => {
-      setErrorMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== newMessage.id))
-    }, 3000)
-  }
-
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     if (!productDetails) {
-      showErrorMessage('Error: No se pueden obtener los detalles del producto')
+      toast.error('Error: No se pueden obtener los detalles del producto')
       return
     }
-  
+
     if (!productDetails.id || !productDetails.name || typeof productDetails.price !== 'number') {
-      console.error('Datos del producto incompletos:', productDetails)
-      showErrorMessage('Error: Información del producto incompleta')
+      toast.error('Error: Información del producto incompleta')
       return
     }
-  
+
     const cartProduct = {
       id: productDetails.id,
       name: productDetails.name,
       price: productDetails.price,
-      quantity: quantity,
+      quantity,
       imageUrl: productDetails.images[0]?.url || '/path/to/default-image.jpg',
       stock: productDetails.stock,
     }
-  
-    console.log('Producto a añadir al carrito:', cartProduct)
-  
+
     addToCart(cartProduct)
-    showApprovalMessage('Producto agregado al carrito')
-  
-    // Disparar evento para actualizar el Navbar
+    toast.success('Producto agregado al carrito')
     window.dispatchEvent(new Event('cartUpdated'))
   }
 
@@ -184,18 +138,12 @@ export default function AddToCartSection({ productId, stock, slug }: AddToCartSe
         <button
           className={styles['add-to-cart-btn']}
           onClick={handleAddToCart}
-          type="button" 
+          type="button"
           disabled={remainingStock === 0}
         >
           {remainingStock === 0 ? 'Sin stock' : 'Agregar al carrito'}
         </button>
       </div>
-      <MessageStack
-        errorMessages={errorMessages}
-        approvalMessages={approvalMessages}
-        onRemoveError={(id) => setErrorMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id))}
-        onRemoveApproval={(id) => setApprovalMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id))}
-      />
     </div>
   )
 }

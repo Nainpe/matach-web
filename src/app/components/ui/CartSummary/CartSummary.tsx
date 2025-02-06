@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import Image from 'next/image';
 import { CartProduct } from '@/types';
 import styles from './CartSummary.module.css';
@@ -8,76 +9,79 @@ import CartSummaryBox from '../CartSummaryBox/CartSummaryBox';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { useCartStore } from '@/store/cartStore';
-import ApprovalMessage from '../MessageStack/ApprovalMessage.tsx/ApprovalMessage';
-import ErrorMessage from '../MessageStack/ErrorMessage/ErrorMessage';
-import MessageStack from '../MessageStack/MessageStack';
+import { fetchUpdatedStock } from '@/actions/carrito/UpdateStock';
 
 interface CartSummaryProps {
   discount: number;
+  cartItems: CartProduct[];
 }
 
-interface Message {
-  id: number;
-  text: string;
-}
-
-const CartSummary: React.FC<CartSummaryProps> = ({ discount }) => {
-  const cartItems: CartProduct[] = useCartStore((state) => state.cartItems);
+const CartSummary: React.FC<CartSummaryProps> = ({ discount, cartItems }) => {
   const updateCartItemQuantity = useCartStore((state) => state.updateCartItemQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
-  
-  const [approvalMessages, setApprovalMessages] = useState<Message[]>([]);
-  const [errorMessages, setErrorMessages] = useState<Message[]>([]);
-
-  const showApprovalMessage = (text: string) => {
-    const newMessage: Message = { id: Date.now(), text };
-    setApprovalMessages((prevMessages) => [...prevMessages, newMessage]);
-    setTimeout(() => {
-      setApprovalMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== newMessage.id));
-    }, 3000);
-  };
-
-  const showErrorMessage = (text: string) => {
-    const newMessage: Message = { id: Date.now(), text };
-    setErrorMessages((prevMessages) => [...prevMessages, newMessage]);
-    setTimeout(() => {
-      setErrorMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== newMessage.id));
-    }, 3000);
-  };
+  const [stockLevels, setStockLevels] = useState<{ [key: string]: number }>({});
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
-    setErrorMessages([]);
+    const fetchInitialStock = async () => {
+      const initialStock: { [key: string]: number } = {};
+      const initialQuantities: { [key: string]: number } = {};
+      for (const item of cartItems) {
+        try {
+          const stock = await fetchUpdatedStock(item.id);
+          initialStock[item.id] = stock;
+          initialQuantities[item.id] = item.quantity;
+        } catch (error) {
+          console.error(`Error fetching stock for item ${item.id}:`, error);
+          initialStock[item.id] = item.quantity; // Fallback to current quantity
+          initialQuantities[item.id] = item.quantity;
+        }
+      }
+      setStockLevels(initialStock);
+      setQuantities(initialQuantities);
+    };
+
+    fetchInitialStock();
   }, [cartItems]);
 
   const handleIncrement = (id: string) => {
-    const item = cartItems.find((item) => item.id === id);
-    if (item) {
-      if (item.quantity < item.stock) {
-        updateCartItemQuantity(id, item.quantity + 1);
-        showApprovalMessage(`Cantidad de ${item.name} actualizada.`);
-      } else {
-        showErrorMessage(`No puedes agregar más de ${item.stock} unidades de ${item.name}.`);
-      }
+    if (quantities[id] < (stockLevels[id] || 0)) {
+      const newQuantity = quantities[id] + 1;
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad actualizada.`);
+    } else {
+      toast.error(`No puedes agregar más de ${stockLevels[id]} unidades.`);
     }
   };
 
   const handleDecrement = (id: string) => {
-    const item = cartItems.find((item) => item.id === id);
-    if (item && item.quantity > 1) {
-      updateCartItemQuantity(id, item.quantity - 1);
-      showApprovalMessage(`Cantidad de ${item.name} reducida.`);
+    if (quantities[id] > 1) {
+      const newQuantity = quantities[id] - 1;
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad reducida.`);
+    }
+  };
+
+  const handleQuantityChange = (id: string, newQuantity: number) => {
+    if (newQuantity >= 1 && newQuantity <= (stockLevels[id] || 0)) {
+      setQuantities((prev) => ({ ...prev, [id]: newQuantity }));
+      updateCartItemQuantity(id, newQuantity);
+      toast.success(`Cantidad actualizada.`);
+    } else if (newQuantity > (stockLevels[id] || 0)) {
+      toast.error(`No puedes agregar más de ${stockLevels[id]} unidades.`);
+    } else {
+      toast.error('La cantidad mínima es 1.');
     }
   };
 
   const handleDeleteItem = (id: string) => {
-    const item = cartItems.find((item) => item.id === id);
-    if (item) {
-      removeFromCart(id);
-      showApprovalMessage(`${item.name} eliminado del carrito.`);
-    }
+    removeFromCart(id);
+    toast.success(`Producto eliminado del carrito.`);
   };
 
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * (quantities[item.id] || 1), 0);
   const finalPrice = totalPrice - discount;
 
   return (
@@ -93,7 +97,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ discount }) => {
                 <li key={item.id} className={styles.productItem}>
                   <div className={styles.imageContainer}>
                     <Image
-                      src={item.imageUrl}
+                      src={item.imageUrl || '/images/placeholder.png'}
                       alt={item.name}
                       width={80}
                       height={80}
@@ -109,7 +113,14 @@ const CartSummary: React.FC<CartSummaryProps> = ({ discount }) => {
                         <button onClick={() => handleDecrement(item.id)} className={styles.quantityButton}>
                           <FaMinus />
                         </button>
-                        <input type="number" value={item.quantity} readOnly className={styles.quantityInput} />
+                        <input
+                          type="number"
+                          value={quantities[item.id] || 1}
+                          onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
+                          className={styles.quantityInput}
+                          min="1"
+                          max={stockLevels[item.id] || 1}
+                        />
                         <button onClick={() => handleIncrement(item.id)} className={styles.quantityButton}>
                           <FaPlus />
                         </button>
@@ -124,17 +135,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({ discount }) => {
             </ul>
           )}
         </div>
-        <CartSummaryBox
-          cartItems={cartItems.map((item) => ({ ...item, stock: item.quantity }))}
-          totalPrice={finalPrice}
-        />
+        {cartItems.length > 0 && (
+          <CartSummaryBox
+            cartItems={cartItems.map((item) => ({ ...item, stock: stockLevels[item.id] || item.quantity }))}
+            totalPrice={finalPrice}
+          />
+        )}
       </div>
-      <MessageStack
-        errorMessages={errorMessages}
-        approvalMessages={approvalMessages}
-        onRemoveError={(id) => setErrorMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id))}
-        onRemoveApproval={(id) => setApprovalMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id))}
-      />
     </div>
   );
 };

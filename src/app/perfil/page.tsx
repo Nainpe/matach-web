@@ -1,31 +1,15 @@
-import { auth } from "@/auth.config"
-import { redirect } from "next/navigation";
+import React from 'react'
+import OrdersBox from './ui/OrdersBox'
+import UserDetailsBox from './ui/UserDetailsBox'
 
-
-export default async function ProfilePage() {
-
-
-    const session = await auth();
-
-    if ( !session?.user ) {
-        redirect('/')
-    }
-
+export default function Perfil() {
   return (
     <div>
-      <h1> pinga</h1>
+      <div className='perfil-container'>
+      <UserDetailsBox/>
+        <OrdersBox/>
 
-      <pre>
-
-        {
-
-         JSON.stringify( session.user, null, 2)
-
-        }
-
-      </pre>
-
-
+      </div>
 
     </div>
   )

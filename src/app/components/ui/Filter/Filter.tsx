@@ -12,7 +12,7 @@ interface FilterProps {
   searchTerm?: string; // Hacer searchTerm opcional
 }
 
-const Filter: React.FC<FilterProps> = ({ brands, maxPrice, subcategories, parentCategories, onFilterChange, searchTerm }) => {
+const Filter: React.FC<FilterProps> = ({ brands, maxPrice, subcategories, parentCategories, onFilterChange }) => {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number>(maxPrice || 10000);
 

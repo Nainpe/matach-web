@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import styles from './CartSummaryBox.module.css';
 import { CartProduct } from '@/types';
+import Link from 'next/link';
 
 interface CartSummaryBoxProps {
   cartItems: CartProduct[];
@@ -70,7 +71,9 @@ const CartSummaryBox: React.FC<CartSummaryBoxProps> = ({ cartItems, totalPrice }
         <span>Total</span>
         <span>${finalPrice.toLocaleString('es-AR')}</span>
       </div>
+      <Link href='/resumen'>
       <button className={styles.checkoutButton}>Proceder al pago</button>
+      </Link>
     </div>
   );
 };

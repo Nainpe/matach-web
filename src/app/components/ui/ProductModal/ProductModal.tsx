@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {  useEffect } from 'react';
 import styles from './ProductModal.module.css';
 
 interface InstallmentOption {
@@ -27,7 +27,7 @@ const formatCurrency = (amount: number) => {
   });
 }
 
-export default function ProductModal({ product, installmentOptions, isOpen, onClose }: ProductModalProps) {
+export default function ProductModal({ installmentOptions, isOpen, onClose }: ProductModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

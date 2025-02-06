@@ -1,0 +1,117 @@
+.InfoPaymentContainer {
+    padding: 25px;
+    border: 1px solid #ddd;
+    background: #fff;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.TitleInfo {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+.InfoPaymentBox {
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.InfoPaymentBox p {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    color: #71717a;
+    font-size: 0.875rem;
+    font-weight: lighter;
+}
+
+.InfoPaymentBox svg {
+    font-size: 1.2rem; 
+    flex-shrink: 0; 
+}
+
+.PaymentInfo {
+    margin-top: 3px;
+}
+
+.TitlePayment {
+  font-size: 1rem;
+}
+
+.SelectCuotas {
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+
+  .CustomSelect {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    appearance: none;
+    cursor: pointer;
+    outline: none; 
+    margin-top: 3px;
+  }
+  
+  .CustomSelect:hover {
+    border-color: #999;
+  }
+
+  .ConfirmButton {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #e63946; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .ConfirmButton:hover {
+    background-color: #c53030;
+  }
+  
+
+  .ListPayment {
+    color: #71717a;
+    font-size: 0.875rem;
+    font-weight: lighter;
+    list-style-type: disc; 
+    margin-top: 3px;
+   
+}
+
+.ListPayment li {
+    margin-bottom: 5px; 
+    list-style-position: inside; 
+}
+
+.ListPayment li::marker {
+    color: #71717a; 
+    font-size:  0.875rem; 
+}
+
+
+.PendingText {
+    color: #ff9800 !important; 
+  }
+  
+  .ValidatedText {
+    color: #4caf50 !important;
+  }
+  
+  .RejectedText {
+    color: #f44336 !important; 
+  }

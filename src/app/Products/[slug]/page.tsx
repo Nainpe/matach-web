@@ -9,6 +9,8 @@ import CardPayment from '@/app/components/ui/card-payment/page';
 import CarruselItem from '@/app/components/ui/CarouselItem/CarouselItem';
 import ProductGalleryMobile from '@/app/components/ui/product-gallery/ProductGalleryMobile';
 import MobileNavbar from '@/app/components/ui/MobileNavbar/MobileNavbar';
+import { TbTruckDelivery } from "react-icons/tb";
+
 
 const prisma = new PrismaClient();
 
@@ -118,7 +120,9 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
           <CardPayment />
           <div className='product-container-buy'>
             <div className='delivery-info'>
-              <img src="/logos/truck-delivery.svg" alt="Ícono de entrega" className="delivery-icon" />
+
+            <TbTruckDelivery  className='delivery-icon'/>
+
               <div className="shipping-methods">
                 <h2 className="shipping-title">Métodos de envío y tarifas</h2>
                 <p className="shipping-description">Tarifas de envíos y métodos de envíos</p>

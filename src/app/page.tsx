@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 import { Navbar } from './components/ui/Navbar';
 import './globals.css';
@@ -14,14 +13,14 @@ const Home = () => {
     <html lang="es"> {/* Asegúrate de incluir el atributo lang */}
       <body className="outfit"> {/* Aplica la clase 'outfit' al body */}
         <header className='header'>
-          {/* Descomentar según sea necesario */}
-          {/* <div className='show-on-mobile'>
+
+           <div className='show-on-mobile'>
               <MobileNavbar />
-            </div> */}
-            
-          {/* <div className='show-on-desktop'>
+            </div>
+
+         <div className='show-on-desktop'>
               <Navbar/>
-            </div> */}
+            </div>
         </header>
         <main>
           <CustomSlider />

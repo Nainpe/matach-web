@@ -1,17 +1,19 @@
 'use client';
 
-import { useActionState, useEffect, useState, useTransition } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Laptop, Facebook, Twitter } from 'lucide-react';
 import styles from './Login.module.css';
 import { authenticate } from '@/actions/auth/login';
 import { useRouter } from 'next/dist/client/components/navigation';
+import PasswordResetModal from './PasswordResetModal';
+import { useModalStore } from '@/store/modalStore';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const { openModal } = useModalStore(); // Usamos el store para abrir el modal
+
   const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined);
 
 
@@ -20,6 +22,7 @@ export default function LoginPage() {
      window.location.replace('/');
     }
   }, [errorMessage]);
+
 
   return (
     <div className={styles.container}>
@@ -62,14 +65,22 @@ export default function LoginPage() {
                 <input type="checkbox" name="remember" className={styles.checkbox} />
                 Recordarme
               </label>
-              <Link href="/forgot-password" className={styles.forgotLink}>
+              <button
+                type="button"
+                onClick={openModal} // Abre el modal cuando el usuario hace clic
+                className={styles.forgotLink}
+              >
                 ¿Olvidaste tu contraseña?
-              </Link>
+              </button>
             </div>
             <button type="submit" className={styles.submitButton} disabled={isPending}>
               {isPending ? 'Iniciando...' : 'Iniciar sesión'}
             </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {errorMessage && (
+            <>
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </>
+          )}
           </form>
           <div className={styles.separator}></div>
           <div className={styles.socialLogin}>
@@ -88,6 +99,10 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
+
+
+      <PasswordResetModal />
+
     </div>
   );
 }

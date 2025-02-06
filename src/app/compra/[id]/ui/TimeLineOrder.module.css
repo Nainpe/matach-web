@@ -1,0 +1,62 @@
+.lineBox {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.stateIcon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem; 
+    height: 2.5rem; 
+    border-radius: 9999px;
+}
+
+.approved {
+    background-color: #DCFCE7;
+    color: #16A34A;
+}
+
+.pending {
+    background-color: #FEF9C3;
+    color: #CA8A04;
+}
+
+.canceled {
+    background-color: #FEE2E2;
+    color: #DC2626;
+}
+
+
+.stateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem; 
+}
+
+.stateText {
+    font-size: 0.9rem;
+    color: #333;
+
+}
+
+.stateInfo {
+    font-size: 0.8rem;
+    color: #555; 
+}
+
+@media (max-width: 768px) {
+    .lineBox {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+        grid-template-rows: repeat(2, auto);  /* 2 filas */
+        gap: 1.5rem;
+    }
+}

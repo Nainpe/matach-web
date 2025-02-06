@@ -32,7 +32,7 @@ interface PropiedadesCarruselItem {
 
 const CarruselItem: React.FC<PropiedadesCarruselItem> = ({ slug }) => {
   const [productosRelacionados, setProductosRelacionados] = useState<Producto[]>([])
-  const [productoActual, setProductoActual] = useState<Producto | null>(null)
+  const [, setProductoActual] = useState<Producto | null>(null)
 
   useEffect(() => {
     const obtenerProductosRelacionados = async () => {

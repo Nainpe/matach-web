@@ -3,18 +3,24 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Thumbs, Autoplay, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import Image from 'next/image';
 import styles from './ProductGalleryMobile.module.css';
 
-// Importar los estilos
+// Import styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import 'swiper/css/autoplay';
+import { Product, ProductImage } from '@/types';
 
-const ProductGalleryMobile = ({ product }: { product: any }) => {
-  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+interface ProductGalleryMobileProps {
+  product: Product;
+}
+
+const ProductGalleryMobile: React.FC<ProductGalleryMobileProps> = ({ product }) => {
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   return (
     <div className={styles.productPhoto}>
@@ -25,7 +31,7 @@ const ProductGalleryMobile = ({ product }: { product: any }) => {
             spaceBetween={10}
             navigation={false}
             pagination={{ clickable: true }}
-            thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
             modules={[FreeMode, Pagination, Thumbs, Autoplay]}
             className={styles.productGallery}
             autoplay={{
@@ -33,15 +39,15 @@ const ProductGalleryMobile = ({ product }: { product: any }) => {
               disableOnInteraction: false,
             }}
           >
-            {product.images.map((image: any) => (
+            {product.images.map((image: ProductImage) => (
               <SwiperSlide key={image.id}>
                 <div className={styles.imageWrapper}>
                   <Image
                     className={styles.imagePhoto}
                     src={image.url}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Añadido sizes
-                    style={{ objectFit: 'cover' }} // Reemplaza objectFit="cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    style={{ objectFit: 'cover' }}
                     alt={product.name}
                     loading="eager"
                   />
@@ -60,14 +66,14 @@ const ProductGalleryMobile = ({ product }: { product: any }) => {
             modules={[FreeMode, Thumbs]}
             className={styles.productThumbs}
           >
-            {product.images.map((image: any) => (
+            {product.images.map((image: ProductImage) => (
               <SwiperSlide key={image.id}>
                 <div className={styles.thumbWrapper}>
                   <Image
                     className={styles.imageThumbs}
                     src={image.url}
                     fill
-                    sizes="(max-width: 768px) 25vw, (max-width: 1200px) 15vw, 10vw" // Añadido sizes para miniaturas
+                    sizes="(max-width: 768px) 25vw, (max-width: 1200px) 15vw, 10vw"
                     style={{ objectFit: 'cover' }}
                     alt={product.name}
                     loading="eager"
@@ -83,3 +89,4 @@ const ProductGalleryMobile = ({ product }: { product: any }) => {
 };
 
 export default ProductGalleryMobile;
+

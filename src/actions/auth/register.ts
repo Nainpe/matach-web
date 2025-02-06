@@ -1,6 +1,5 @@
 'use server';
 
-
 import { randomBytes } from "crypto";
 import bcryptjs from "bcryptjs";
 import prisma from "@/lib/prisma";
@@ -22,6 +21,15 @@ export const registerUser = async (
   const tokenExpires = new Date(Date.now() + 1000 * 60 * 60 * 24); // Expira en 1 día
 
   try {
+    // Verificar si el correo electrónico ya está registrado
+    const existingUser = await prisma.user.findUnique({
+      where: { email: email.toLowerCase() },
+    });
+
+    if (existingUser) {
+      return { ok: false, message: "El correo electrónico ya está registrado." };
+    }
+
     // Crear usuario
     const user = await prisma.user.create({
       data: {
@@ -31,14 +39,22 @@ export const registerUser = async (
         lastName,
         phoneNumber,
         dni,
-        address,
-        locality,
-        province,
-        postalCode,
         name: `${firstName} ${lastName}`,
         emailVerified: false, // Marca como no verificado
       },
       select: { id: true, name: true, email: true },
+    });
+
+    // Crear la dirección asociada al usuario
+    await prisma.address.create({
+      data: {
+        userId: user.id, // Asocia la dirección al usuario
+        street: address,
+        locality,
+        province,
+        postalCode,
+        isPrimary: true, // Marca como dirección principal
+      },
     });
 
     // Crear token de verificación en la tabla `VerificationToken`
@@ -56,6 +72,6 @@ export const registerUser = async (
     return { ok: true, user };
   } catch (error) {
     console.log(error);
-    return { ok: false };
+    return { ok: false, message: "Ocurrió un error durante el registro." };
   }
 };

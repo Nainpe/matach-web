@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function MobileNavbar() {
   const { isSearchVisible, toggleSearch } = useSearchStore();
-  const { isMenuOpen, toggleMenu } = useMenuStore();
+  const { toggleMenu } = useMenuStore();
   const cartItems = useCartStore((state) => state.cartItems)
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
   const [isClient, setIsClient] = useState(false)

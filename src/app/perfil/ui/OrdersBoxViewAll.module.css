@@ -1,0 +1,141 @@
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem; /* Menor padding general */
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.ordersTitle {
+  font-size: 1.2rem; /* Reducir tamaño del título */
+  margin-bottom: 0.8rem; /* Menor separación */
+  text-align: center;
+}
+
+.orderBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem; 
+  border-bottom: 1px solid #e0e0e0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem; 
+  margin-right: 10px;
+  color: #71717a;
+}
+
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.orderName {
+  font-size: 15px;
+  margin: 0;
+}
+
+.orderDate {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #666;
+}
+
+.orderStatus {
+  font-size: 0.9rem; /* Reducir tamaño de texto del estado */
+  font-weight: bold;
+  text-align: right;
+}
+
+.approved {
+  color: #28a745; /* Verde para entregado */
+}
+
+.notApproved {
+  color: #dc3545; /* Rojo para pendiente */
+}
+
+.orderActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detailsButton {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #71717a;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.detailsButton:hover {
+  background-color: #eee;
+}
+
+/* No orders message */
+.noOrdersContainer {
+  text-align: center;
+  padding: 2rem;
+}
+
+.noOrdersContainer h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.noOrdersContainer p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.exploreButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #18181b;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+
+.exploreButton:hover {
+  background-color: #000;
+}
+
+/* Scroll solo en dispositivos móviles */
+@media (max-width: 768px) {
+  .ordersContainer {
+    max-height: 500px; /* Limita la altura del contenedor */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    scrollbar-width: thin; /* Scroll para navegadores modernos */
+    scrollbar-color: #ccc transparent; /* Colores del scroll */
+  }
+
+  .ordersContainer::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+  }
+
+  .ordersContainer::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color del pulgar */
+    border-radius: 4px; /* Bordes redondeados del scrollbar */
+  }
+
+  .ordersContainer::-webkit-scrollbar-track {
+    background-color: transparent; /* Fondo del scrollbar */
+  }
+}

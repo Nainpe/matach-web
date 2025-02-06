@@ -1,0 +1,58 @@
+.InfoOrderBox {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 50px;
+    padding: 25px;
+    border-radius: 8px;
+  }
+  
+  .TitleInfo {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .InfoDireccionBox {
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  
+  .InfoDireccionBox p,
+  .InfoShippingBox p, 
+  .InfoState p{
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    color: #71717a;
+    font-size: 0.875rem;
+    font-weight: lighter;
+  }
+  
+  .InfoDireccionBox svg,
+  .InfoShippingBox svg,
+  .InfoState svg {
+    font-size: 1.2rem; 
+    flex-shrink: 0; 
+  }
+  
+  .TitleDirecction {
+    font-size: 1rem;
+  }
+  
+  .InfoShippingBox {
+    margin-top: 15px;
+  }
+
+  .ShippingInfo {
+    margin-top: 3px;
+  }
+  
+  .InfoState {
+    margin-top: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .InfoOrderBox {
+      margin-top: 0;
+    }
+
+  }

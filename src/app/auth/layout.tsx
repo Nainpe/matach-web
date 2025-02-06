@@ -21,11 +21,9 @@ export default  async function ShopLayout({ children }: {
     return(
 
 
-        <main>
             <div>
                 { children }
             </div>
-        </main>
     )
 
 

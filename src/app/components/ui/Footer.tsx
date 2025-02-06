@@ -8,12 +8,7 @@ export default function Footer(): JSX.Element {
       <div className='footer'>
         <div className='footer-content main-container'>
           <div className='box-truck'>
-            <span 
-              className='material-symbols-outlined icon-large' 
-              style={{ fontSize: '55px', width: '50px', height: '50px' }}
-            >
-              local_shipping
-            </span>
+
 
             <div className='box-truck-text'>
               <h3>Hacemos envios</h3>

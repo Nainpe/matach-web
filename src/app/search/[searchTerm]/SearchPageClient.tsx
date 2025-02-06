@@ -21,7 +21,7 @@ interface SearchPageClientProps {
 
 const SearchPageClient: React.FC<SearchPageClientProps> = ({ products, brands, maxPrice, searchTerm, subcategories }) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
-  const [currentSearchTerm, setCurrentSearchTerm] = useState(searchTerm || '');
+  const [currentSearchTerm] = useState(searchTerm || '');
 
   useEffect(() => {
     // Filtrar productos automáticamente con base en el término de búsqueda al cargar

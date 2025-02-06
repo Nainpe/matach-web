@@ -1,0 +1,68 @@
+.verifyBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.circleBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background-color: #18181b;
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  font-size: 2rem;
+  color: #fff; /* Color del ícono de correo */
+}
+
+.iconSuccess {
+  font-size: 2rem;
+  color: #4caf50; /* Color del ícono de éxito */
+}
+
+.iconError {
+  font-size: 2rem;
+  color: #f44336; /* Color del ícono de error */
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-size: 0.875rem;
+  color: #666666;
+  margin-bottom: 1.5rem;
+}
+
+.loader {
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+  color: #18181b;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

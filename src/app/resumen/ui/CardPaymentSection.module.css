@@ -1,0 +1,60 @@
+.cardPaymentsContainer {
+    border: solid 2px #f0f0f0;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .cardPayments {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 10px;
+  }
+  
+  .iconTitleContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ajusta el espacio entre el ícono y el título */
+  }
+  
+  .iconCardPayment {
+    width:35px;
+    height: 35px;
+  }
+  
+  .paymentsLogo {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .paymentsLogos {
+    margin-right: 15px;
+  }
+  
+  .titleSubtitle {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .titleSubtitle h2 {
+    margin-bottom: 0.1rem;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .modalButton {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    color: inherit;
+    text-align: left;
+  }
+  
+  .modalButton:hover {
+    background-color: #0056b3;
+  }
+  

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation'; // Importa useParams
 import ProductModal from '../ProductModal/ProductModal';
+import { FaRegCreditCard } from 'react-icons/fa';
 
 interface Producto {
   id: string;
@@ -61,16 +62,7 @@ export default function CardPaymentPage() {
       <div className='card-payments-container'>
         <div className='card-payments'>
           <div className='icon-title-container'>
-            <svg 
-              className="icon-card-payment"
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              style={{ fill: 'rgba(0, 0, 0, 1)' }}
-            >
-              <path d="M20 4H4c-1.103 0-2 .897-2 2v2h20V6c0-1.103-.897-2-2-2zM2 18c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-6H2v6zm3-3h6v2H5v-2z"></path>
-            </svg>
+            <FaRegCreditCard  className='icon-card-payment'/>
             <div className="title-subtitle">
               <h2>Métodos de pagos y cuotas</h2>
               <button 

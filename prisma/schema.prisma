@@ -18,10 +18,29 @@ enum ProductStatus {
 
 enum OrderStatus {
   PENDING
-  SHIPPED
+  APPROVED
+  CANCELLED
   DELIVERED
-  CANCELED
 }
+
+enum PaymentType {
+  TRANSFERENCIA
+  CUOTAS
+}
+
+enum DeliveryStatus {
+  PENDING    
+  IN_TRANSIT  
+  DELIVERED    
+  CANCELLED    
+}
+
+enum PaymentStatus {
+  PENDING
+  VALIDATED
+  REJECTED
+}
+
 
 enum Role {
   Admin
@@ -44,7 +63,6 @@ model Product {
   status         ProductStatus   @default(IN_STOCK)
   brandId        String
   categoryId     String
-  
   supplierId     String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -56,6 +74,7 @@ model Product {
   sales          Sale[]
   images         ProductImage[]
   tags           ProductTag[]
+  orderProducts  OrderProduct[]  // Relación con OrderProduct
 }
 
 model Tag {
@@ -122,7 +141,6 @@ model Coupon {
   expiresAt     DateTime
 }
 
-
 model Sale {
   id         String   @id @default(cuid())
   productId  String
@@ -136,27 +154,26 @@ model Sale {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  role           Role @default(User)
-  firstName      String
-  lastName       String
-  phoneNumber    String    @unique
-  address        String
-  locality       String
-  province       String
-  postalCode     String?
-  password       String
-  image          String?
-  name           String?
-  dni            String
-  email          String   @unique
-  emailVerified   Boolean  @default(false)
-  accounts       Account[]
-  sessions       Session[]
+  id                String    @id @default(cuid())
+  role              Role      @default(User)
+  firstName         String
+  lastName          String
+  phoneNumber       String    @unique
+  addresses         Address[]
+  password          String
+  image             String?
+  name              String?
+  dni               String
+  email             String    @unique
+  emailVerified     Boolean   @default(false)
+  accounts          Account[]
+  sessions          Session[]
   purchasedProducts Sale[]
-
+  orders            Order[]
+  createdAt         DateTime  @default(now()) 
   @@map("users")
 }
+
 
 model Account {
   id                String  @id @default(cuid())
@@ -195,3 +212,76 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
+
+
+model Order {
+  id              String          @id @default(uuid()) 
+  userId          String
+  user            User            @relation(fields: [userId], references: [id])
+  products        OrderProduct[] 
+  status          OrderStatus     @default(PENDING) // Ahora representa la preparación del pedido
+  deliveryStatus  DeliveryStatus  @default(PENDING) // Nuevo estado de entrega
+  totalPrice      Float           @default(0)
+  shippingAddress String     
+  address         OrderAddress?   
+  isPickup        Boolean         @default(false)
+  pickupName      String?
+  pickupDni       String?
+  paymentType     PaymentType     @default(TRANSFERENCIA)
+  paymentProof    String?        
+  paymentStatus   PaymentStatus   @default(PENDING)
+  paymentDetails  Json?          
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  payment         Payment?        @relation 
+}
+
+
+model OrderProduct {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int       @default(1)
+  price     Float
+  order     Order     @relation(fields: [orderId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+
+  @@unique([orderId, productId])
+}
+
+model OrderAddress {
+  id          String   @id @default(cuid())
+  orderId     String   @unique
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  street      String   // Calle y número
+  locality    String   // Ciudad o localidad
+  province    String   
+  postalCode  String  
+  isPrimary   Boolean  @default(false) // Dirección principal del pedido
+  createdAt   DateTime @default(now())
+}
+
+model Address {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  street      String   // Calle y número
+  locality    String?   // Ciudad o localidad
+  province    String?   // Provincia o región
+  postalCode  String?
+  country     String?
+  phoneNumber String?  // Número de contacto opcional
+  isPrimary   Boolean  @default(false) // Dirección principal del usuario
+  createdAt   DateTime @default(now())
+}
+
+model Payment {
+  id              String     @id @default(cuid())
+  orderId         String     @unique // Asegura que la relación sea uno a uno
+  paymentType     PaymentType
+  paymentStatus   PaymentStatus
+  paymentDate     DateTime   @default(now())
+  transferProof   String?    // Comprobante de transferencia (puede ser URL o ruta del archivo)
+  order           Order      @relation(fields: [orderId], references: [id]) // Relación definida aquí
+} 

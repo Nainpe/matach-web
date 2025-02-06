@@ -3,7 +3,6 @@ import prisma from '@/lib/prisma';
 import CategoryPageClient from './CategoryPageClient'; // Importa el componente de cliente
 import { Navbar } from '../components/ui/Navbar';
 import Footer from '../components/ui/Footer'; // Cambiado a importación por defecto
-import Breadcrumbs from '../components/ui/breadcrumbs/Breadcrumbs';
 import MobileNavbar from '../components/ui/MobileNavbar/MobileNavbar';
 
 export default async function CategoryPage({ params }: { params: { categorySlug: string } }) {

@@ -1,0 +1,137 @@
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem; /* Menor padding general */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  width: 400px;
+}
+
+.ordersTitle {
+  font-size: 1.2rem; /* Reducir tamaño del título */
+  margin-bottom: 0.8rem; /* Menor separación */
+  text-align: center;
+}
+
+.orderBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem; 
+  border-bottom: 1px solid #e0e0e0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem; /* Reducir tamaño del ícono */
+  margin-right: 10px;
+  color: #0070f3;
+}
+
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.orderName {
+  font-size: 15px; /* Reducir tamaño de texto del nombre */
+  margin: 0;
+}
+
+.orderDate {
+  font-size: 0.9rem; /* Reducir tamaño de texto de la fecha */
+  margin: 0;
+  color: #666;
+}
+
+.orderStatus {
+  font-size: 0.9rem; /* Reducir tamaño de texto del estado */
+  font-weight: bold;
+  text-align: right;
+}
+
+.approved {
+  color: #28a745; /* Verde para entregado */
+}
+
+.notApproved {
+  color: #dc3545; /* Rojo para pendiente */
+}
+
+.allOrdersButton {
+  margin-top: 10px;
+  padding: 0.75rem 1.5rem;
+  background-color: #dc3545; 
+  color: #fff; /* Texto blanco */
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  align-self: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.allOrdersButton:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el cursor */
+}
+
+
+@media (max-width:750px ) {
+  .ordersContainer {
+    width: 100%;
+    margin:0 ;
+  }
+}
+
+.noOrdersContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  width: 400px;
+}
+
+.noOrdersIcon {
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.noOrdersTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.noOrdersText {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.exploreButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #18181b;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+@media (max-width:750px ) {
+  .noOrdersContainer{
+    width: 100%;
+  }
+
+}

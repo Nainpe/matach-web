@@ -5,7 +5,6 @@ import { Navbar } from '../components/ui/Navbar';
 import { CartProduct } from '@/types';
 import MobileNavbar from '../components/ui/MobileNavbar/MobileNavbar';
 import Footer from '../components/ui/Footer';
-import CartSummaryBox from '../components/ui/CartSummaryBox/CartSummaryBox';
 import MobileCartSummary from '../components/ui/MobileCartSummary/MobileCartSummary';
 
 const Carrito = async () => {
@@ -79,9 +78,19 @@ const Carrito = async () => {
         
       </header>
       <main className='page-carrito-main'>
-        {/* <CartSummary {...{ cartItems, discount }} /> */}
+    
         <div className='main-container'>
-        <MobileCartSummary />
+    
+
+        <div className='show-on-mobile'>
+           <MobileCartSummary />
+        </div>
+
+        <div className='show-on-desktop'>
+        <CartSummary cartItems={cartItems} discount={discount} />
+        </div> 
+
+      
 
         </div>
       </main>

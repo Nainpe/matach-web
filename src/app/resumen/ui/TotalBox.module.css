@@ -1,0 +1,121 @@
+.totalBox {
+    padding: 1.5rem;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .totalPrice {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+  }
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .editCartLink {
+    display: flex;
+    align-items: center;
+    color: #0070f3;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .editCartLink:hover {
+    color: #0056b3;
+  }
+  
+  .editCartIcon {
+    margin-right: 4px;
+    font-size: 1rem;
+  }
+  
+  .priceDetails {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+  }
+  
+  .priceRow {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .priceSubtotal {
+    margin-bottom: 5px;
+    font-size: 1.0rem;
+    font-weight: 700;
+  }
+
+  .priceEnvio {
+    font-size: 1.0rem;
+    font-weight: 700;
+  }
+  
+  .priceTotal {
+    font-size: 1.7rem;
+    font-weight: lighter;
+    color: #555;
+  }
+  
+  .priceValue {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .priceTotalBox {
+    border-top:1px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .priceValueTotal {
+    font-size: 1.7rem;
+    font-weight: lighter;
+    color: #e63946;
+  }
+
+  .cardPaymentContainer {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .radioContainer {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .captchaContainer {
+    border-top: 1px solid #ddd;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .createOrderButton {
+    width: 100%;
+    background-color: #f91c3c;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .createOrderButton:disabled,
+  .disabledButton {
+    background-color: #d6d6d6; /* Tono apagado */
+    color: #999;
+    cursor: not-allowed;
+  }
+  

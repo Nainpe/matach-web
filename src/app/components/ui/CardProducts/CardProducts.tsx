@@ -22,11 +22,10 @@ interface Product {
 }
 
 interface ProductCarouselProps {
-    currentProduct: Product;
     relatedProducts: Product[];
 }
 
-const ProductCarousel: React.FC<ProductCarouselProps> = ({ currentProduct, relatedProducts }) => {
+const ProductCarousel: React.FC<ProductCarouselProps> = ({ relatedProducts }) => {
     return (
         <div className={styles.sliderContainer}>
             <Swiper
@@ -47,7 +46,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ currentProduct, relat
                 }}
                 className={styles.mySwiper}
             >
-                {relatedProducts.map((product, index) => (
+                {relatedProducts.map((product) => (
                     <SwiperSlide key={product.id}>
                         <div className={styles.card}>
                             <div className={styles.imageBox}>

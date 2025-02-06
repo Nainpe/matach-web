@@ -1,0 +1,109 @@
+.DetailsOrderBox {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-top: 50px;
+  margin-right: 20px;
+  width: 830px;
+
+}
+
+.DetailsOrderTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+.OrderItem {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  border-bottom: 1px solid #ddd;
+  align-items: flex-start; 
+}
+
+.ProductImage {
+  object-fit: cover;
+  border-radius: 4px;
+  width: 80px; 
+  height: 80px; 
+}
+
+.ProductInfo {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+}
+
+.ProductDetails {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.ProductTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.ProductPrice {
+  font-size: 1rem;
+  color: #333;
+  margin-left: 15px; /* Añade espacio entre el título y el precio */
+}
+
+.ProductQuantity {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 5px; /* Añade un pequeño margen sobre la cantidad */
+}
+
+
+.OrderTotal {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+  text-align: right;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+    
+
+.OrderSummary {
+  margin-top: 5px;
+  padding-top: 5px;
+
+}
+
+.SummaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.SummaryRowTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-top: 10px;
+  padding-top: 5px;
+  color: #333;
+  border-top: 1px solid #ddd;
+}
+
+.ShippingInfo {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .DetailsOrderBox {
+    width: 100%;
+  
+  }
+
+}

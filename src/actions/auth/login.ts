@@ -1,54 +1,30 @@
 'use server';
- 
-import { signIn } from '@/auth.config';
+
+import { signIn } from '@/auth.config'; // Asegúrate de que esta función esté configurada correctamente.
 import { AuthError } from 'next-auth';
-import { redirect } from 'next/dist/server/api-utils';
- 
-// ...
- 
+
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-
-
     await signIn('credentials', {
-        ...Object.fromEntries(formData.entries()),
-        redirect:false
-    });
+      ...Object.fromEntries(formData.entries()),
+      redirect:false
+  });
 
-    return 'Success'
-    
+    return 'Success';
 
-
-  } catch (error) {
-    console.log(error);
-   
-
-
-    return 'CredentialsSignin';
-    // throw error;
-  }
-}
-
-
-
-export const login = async(email:string, password:string) => {
-
-  try {
-
-    await signIn('credentials',{email, password})
-
-    return {ok: true};
-    
-  }catch (error) {
-    console.log(error);
-    
-    return {
-      ok: false,
-      message: 'no se puedo iniciar session',
+  } catch (error: unknown) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Email o contraseñas incorrectas';
+          return 'chotongus'
+        default:
+          return 'Email no verificado o error desconocido, intenta nuevamente';
+      }
     }
+    throw error;
   }
-
 }

@@ -1,26 +1,50 @@
-
+import { Toaster } from 'react-hot-toast';
 import { Provider } from './components/ui/provider/Provider';
 import './globals.css';
+import { Outfit } from 'next/font/google'; // Importamos la fuente
+
+const outfit = Outfit({
+  subsets: ['latin'], // Subconjuntos necesarios
+  weight: ['400', '500', '600', '700'], // Pesos de la fuente
+  variable: '--font-outfit', // Variable CSS para la fuente
+});
 
 export const metadata = {
   title: 'Matach',
   description: 'La mejor tienda en línea',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="es">
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-      </head>
-      <body className="outfit"> 
+    <html lang="es" className={outfit.variable}>
+      <body>
         <Provider>
-        {children}  
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#333',
+                color: '#fff',
+              },
+              success: {
+                style: {
+                  background: '#28a745',
+                },
+              },
+              error: {
+                style: {
+                  background: '#dc3545',
+                },
+              },
+            }}
+          />
+          {children}
         </Provider>
       </body>
     </html>
