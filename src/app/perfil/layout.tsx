@@ -1,4 +1,3 @@
-import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import styles from "./ui/ProfileLayout.module.css";
 import ProfileSidebar from "./ui/ProfileSidebar";
@@ -7,6 +6,7 @@ import MobileNavbar from "../components/ui/MobileNavbar/MobileNavbar";
 import Footer from "../components/ui/Footer";
 import MobileProfileNavbar from "./ui/MobileProfileNavbar";
 import UserStats from "./ui/UserStat";
+import { auth } from "../../auth.config";
 
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();

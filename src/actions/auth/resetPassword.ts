@@ -21,14 +21,27 @@ export async function resetPassword(token: string, newPassword: string, email: s
       throw new Error('Token inválido o expirado.');
     }
 
+    // Verificar si el token ha expirado
+    if (verificationToken.expires < new Date()) {
+      await prisma.verificationToken.delete({
+        where: {
+          identifier_token: {
+            identifier: email,
+            token: token,
+          },
+        },
+      });
+      throw new Error('Token expirado.');
+    }
+
     const hashedPassword = await hash(newPassword, 12);
 
-    // Actualizar la contraseña y verificar el correo electrónico
+    // Actualizar la contraseña y marcar el correo como verificado
     await prisma.user.update({
       where: { email: email },
       data: { 
         password: hashedPassword,
-        emailVerified: true,
+        emailVerified: new Date(), // Cambio clave aquí
       },
     });
 

@@ -2,12 +2,13 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { verifyTokenWithoutIdentifier } from '@/actions/auth/verifyTokenWithoutIdentifier';
-import MobileNavbar from '@/app/components/ui/MobileNavbar/MobileNavbar';
-import { Navbar } from '@/app/components/ui/Navbar';
-import Footer from '@/app/components/ui/Footer';
+
 import VerifyBox from './ui/VerfiyBox';
-import { resendVerificationEmail } from '@/actions/auth/resendVerificationEmail';
+import { resendVerificationEmail } from '../../../actions/auth/resendVerificationEmail';
+import MobileNavbar from '../../components/ui/MobileNavbar/MobileNavbar';
+import { verifyTokenWithoutIdentifier } from '../../../actions/auth/verifyTokenWithoutIdentifier';
+import Footer from '../../components/ui/Footer';
+import { Navbar } from '../../components/ui/Navbar';
 
 export default function VerifyPage({ params }: { params: Promise<{ token: string }> }) {
   const resolvedParams = use(params);
@@ -15,7 +16,6 @@ export default function VerifyPage({ params }: { params: Promise<{ token: string
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
 
-  // Función para reenviar el código
   const handleResend = async () => {
     if (!userEmail) return;
     
@@ -40,13 +40,19 @@ export default function VerifyPage({ params }: { params: Promise<{ token: string
             router.push('/auth/login');
           }, 2000);
         }
-      } catch (error: any) {
-        if (error.message.includes('expirado')) {
-          setUserEmail(error.message.split(': ')[1]);
-          setStatus('Token expirado');
-        } else {
-          setStatus(error.message || 'Error en la verificación');
+      } catch (error) {
+        let errorMessage = 'Error en la verificación';
+        
+        if (error instanceof Error) {
+          errorMessage = error.message;
+          if (error.message.includes('expirado')) {
+            setUserEmail(error.message.split(': ')[1]);
+            setStatus('Token expirado');
+            return;
+          }
         }
+        
+        setStatus(errorMessage);
       }
     };
 

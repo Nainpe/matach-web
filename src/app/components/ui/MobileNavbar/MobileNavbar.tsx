@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react'
-import { useSearchStore } from '@/store/searchStore';
-import { useMenuStore } from '@/store/menuStore'; 
 import { useCartStore } from '../../../../store/cartStore';
 import { useRouter } from 'next/navigation'; 
 import styles from './MobileNavbar.module.css';
 import SideMenu from '../SideMenu/SideMenu';
 import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchStore } from '../../../../store/searchStore';
+import { useMenuStore } from '../../../../store/menuStore';
 
 export default function MobileNavbar() {
   const { isSearchVisible, toggleSearch } = useSearchStore();

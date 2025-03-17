@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import styles from './CartSummaryFooter.module.css';
-import { useCartStore } from '@/store/cartStore';
+import { useCartStore } from '../../../../../store/cartStore';
+
 
 interface CartSummaryFooterProps {
   applyDiscount: (coupon: string) => number;

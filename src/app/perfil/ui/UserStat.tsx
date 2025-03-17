@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { FaShoppingCart, FaMoneyBillWave, FaCalendarAlt } from 'react-icons/fa';
 import styles from './UserStats.module.css';
-import { fetchUserOrders } from '@/actions/perfil/orderuser';
+import { fetchUserOrders, OrderWithProducts } from '../../../actions/perfil/orderuser'; // Import the correct type
 
 const UserStats: React.FC = () => {
   const { data: session } = useSession();
@@ -16,10 +16,10 @@ const UserStats: React.FC = () => {
       if (session?.user?.id) {
         const userOrders = await fetchUserOrders(session.user.id);
 
-        // Calcular estadísticas
+        // Calculate statistics using the correct type and property names
         const total = userOrders.length;
         const spent = userOrders.reduce(
-          (sum: number, order: any) => sum + order.totalAmount,
+          (sum: number, order: OrderWithProducts) => sum + order.totalPrice,
           0
         );
 
@@ -31,7 +31,7 @@ const UserStats: React.FC = () => {
   }, [session?.user?.id]);
 
   if (!session) {
-    return null; // Ocultar estadísticas si no hay sesión
+    return null;
   }
 
   return (
@@ -64,4 +64,4 @@ const UserStats: React.FC = () => {
   );
 };
 
-export default UserStats;
+export default UserStats; 

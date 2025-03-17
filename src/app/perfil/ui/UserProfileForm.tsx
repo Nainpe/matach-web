@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSession } from "next-auth/react";
-import { toast } from "react-hot-toast"; // Importa react-hot-toast
+import { toast } from "react-hot-toast"; 
 import styles from "./UserProfileForm.module.css";
-import { fetchUserProfile, updateUserProfile } from "@/actions/perfil/userActions";
+import { fetchUserProfile, updateUserProfile } from "../../../actions/perfil/userActions";
 
 interface Address {
   id: string;
@@ -40,7 +40,7 @@ const PROVINCES = [
 const UserProfileForm: React.FC = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
-  const [profileData, setProfileData] = useState<UserProfileFormValues | null>(null);
+  const [, setProfileData] = useState<UserProfileFormValues | null>(null);
 
   const {
     register,

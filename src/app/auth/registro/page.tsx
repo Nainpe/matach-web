@@ -1,7 +1,8 @@
-import { Navbar } from "@/app/components/ui/Navbar";
+import Footer from "../../components/ui/Footer";
+import MobileNavbar from "../../components/ui/MobileNavbar/MobileNavbar";
+import { Navbar } from "../../components/ui/Navbar";
 import RegisterForm from "../ui/Register";
-import Footer from "@/app/components/ui/Footer";
-import MobileNavbar from "@/app/components/ui/MobileNavbar/MobileNavbar";
+
 
 export default function registro() {
   return (

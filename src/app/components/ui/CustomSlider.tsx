@@ -1,33 +1,13 @@
 // src/components/Slider/Slider.tsx
-"use client"; // Asegúrate de que sea un componente de cliente
+"use client";
 
 import React from 'react';
-import Slider from 'react-slick';
+import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// Definir la interfaz para los ajustes del slider
-interface SliderSettings {
-  infinite: boolean;
-  slidesToShow: number;
-  slidesToScroll: number;
-  arrows: boolean;
-  dots: boolean;
-  autoplay: boolean;
-  autoplaySpeed: number;
-  responsive: Array<{
-    breakpoint: number;
-    settings: {
-      slidesToShow: number;
-      slidesToScroll: number;
-      infinite?: boolean;
-      dots?: boolean;
-    };
-  }>;
-}
-
 const CustomSlider: React.FC = () => {
-  const settings: SliderSettings = {
+  const settings: Settings = {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -63,13 +43,17 @@ const CustomSlider: React.FC = () => {
   };
 
   return (
-    <div className="slider">
+    <div className="slider-container">
       <Slider {...settings}>
-        <div><img src="https://via.placeholder.com/800x150?text=Imagen+1" alt="Imagen 1" /></div>
-        <div><img src="https://via.placeholder.com/800x150?text=Imagen+2" alt="Imagen 2" /></div>
-        <div><img src="https://via.placeholder.com/800x150?text=Imagen+3" alt="Imagen 3" /></div>
-        <div><img src="https://via.placeholder.com/800x150?text=Imagen+4" alt="Imagen 4" /></div>
-        <div><img src="https://via.placeholder.com/800x150?text=Imagen+5" alt="Imagen 5" /></div>
+        {[1, 2, 3, 4, 5].map((num) => (
+          <div key={num}>
+            <img 
+              src={`https://via.placeholder.com/800x150?text=Imagen+${num}`} 
+              alt={`Slide ${num}`}
+              className="w-full h-auto"
+            />
+          </div>
+        ))}
       </Slider>
     </div>
   );

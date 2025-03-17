@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import { Product, ProductImage, SwiperInstance } from '@/types';
+import { Product, ProductImage, SwiperInstance } from '../../../types';
 
 interface ProductGalleryProps {
   product: Product;

@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import Image from 'next/image';
-import { CartProduct } from '@/types';
 import styles from './CartSummary.module.css';
 import CartSummaryBox from '../CartSummaryBox/CartSummaryBox';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { useCartStore } from '@/store/cartStore';
-import { fetchUpdatedStock } from '@/actions/carrito/UpdateStock';
+import { CartProduct } from '../../../../types';
+import { useCartStore } from '../../../../store/cartStore';
+import { fetchUpdatedStock } from '../../../../actions/carrito/UpdateStock';
+
 
 interface CartSummaryProps {
   discount: number;

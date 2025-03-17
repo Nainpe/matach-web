@@ -1,6 +1,7 @@
 'use server';
 
-import prisma from '@/lib/prisma';
+import prisma from "../../lib/prisma";
+
 
 interface Address {
   id: string;

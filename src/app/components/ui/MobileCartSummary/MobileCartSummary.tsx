@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './MobileCartSummary.module.css';
-import { CartProduct } from '@/types';
-import { useCartStore } from '@/store/cartStore';
+
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import CartSummaryFooter from './CartSummaryFooter/CartSummaryFooter';
 import { toast } from 'react-hot-toast';
-import { fetchUpdatedStock } from '@/actions/carrito/UpdateStock';
+import { CartProduct } from '../../../../types';
+import { useCartStore } from '../../../../store/cartStore';
+import { fetchUpdatedStock } from '../../../../actions/carrito/UpdateStock';
 
 export default function MobileCartSummary() {
   const cartItems: CartProduct[] = useCartStore((state) => state.cartItems);

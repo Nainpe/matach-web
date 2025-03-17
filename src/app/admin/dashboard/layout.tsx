@@ -1,4 +1,3 @@
-'use client';
 
 import AdminNavbar from "../ui/AdminNavbar";
 import DashboardAdmin from "../ui/DashboardAdmin";
@@ -9,7 +8,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <AdminNavbar />
             <div style={{ display: 'flex' }}>
                 <DashboardAdmin />
-                <main style={{ flex: 1, padding: '20px' }}>
+                <main style={{ flex: 1, padding: '30px' }}>
                     {children}
                 </main>
             </div>

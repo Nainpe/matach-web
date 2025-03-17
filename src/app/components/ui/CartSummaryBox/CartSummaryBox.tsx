@@ -3,8 +3,8 @@
 
 import React, { useState } from 'react';
 import styles from './CartSummaryBox.module.css';
-import { CartProduct } from '@/types';
 import Link from 'next/link';
+import { CartProduct } from '../../../../types';
 
 interface CartSummaryBoxProps {
   cartItems: CartProduct[];

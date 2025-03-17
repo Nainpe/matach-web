@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCartStore } from '@/store/cartStore';
-import { useShippingStore } from '@/store/shippingStore';
+
 import styles from './TotalBox.module.css';
 import RadioGroup from './RadioGroup';
 import CardPaymentSection from './CardPaymentSection';
-import { order } from '@/actions/order/order';
 import { toast } from 'react-hot-toast';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Link from 'next/link';
 import { CiEdit } from 'react-icons/ci'; 
+import { useShippingStore } from '../../../store/shippingStore';
+import { useCartStore } from '../../../store/cartStore';
+import { order } from '../../../actions/order/order';
 
 
 
@@ -121,7 +122,7 @@ const TotalBox: React.FC<TotalBoxProps> = ({ totalPrice }) => {
           title="Método de pago"
           options={paymentOptions}
           selectedValue={paymentMethod}
-          onChange={setPaymentMethod}
+          onChange={(value) => setPaymentMethod(value as "cuota" | "transferencia")}
         />
       </div>
 

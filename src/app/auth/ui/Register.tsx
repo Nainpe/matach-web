@@ -6,7 +6,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ChevronDown } from 'lucide-react';
 import { toast } from 'react-hot-toast'; // Importar toaster
 import styles from './Register.module.css';
-import { registerUser } from '@/actions/auth/register';
+import { registerUser } from '../../../actions/auth/register';
+
 
 type FormData = {
   email: string;

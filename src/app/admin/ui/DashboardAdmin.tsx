@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './DashboardAdmin.module.css';
+import styles from './DashboardAdmin.module.css'
 import Link from 'next/link';
+import React from 'react';
 
 export default function DashboardAdmin() {
   const [activeSection, setActiveSection] = useState('');

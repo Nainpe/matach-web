@@ -2,8 +2,8 @@
 
 import { randomBytes } from "crypto";
 import bcryptjs from "bcryptjs";
-import prisma from "@/lib/prisma";
 import { sendVerificationEmail } from "./sendVerificationEmail";
+import prisma from "../../lib/prisma";
 
 export const registerUser = async (
   email: string,
@@ -30,7 +30,7 @@ export const registerUser = async (
       return { ok: false, message: "El correo electrónico ya está registrado." };
     }
 
-    // Crear usuario
+    // Crear usuario (corregido el campo emailVerified)
     const user = await prisma.user.create({
       data: {
         email: email.toLowerCase(),
@@ -40,7 +40,7 @@ export const registerUser = async (
         phoneNumber,
         dni,
         name: `${firstName} ${lastName}`,
-        emailVerified: false, // Marca como no verificado
+        emailVerified: null, // Ahora es DateTime nullable
       },
       select: { id: true, name: true, email: true },
     });
@@ -48,19 +48,19 @@ export const registerUser = async (
     // Crear la dirección asociada al usuario
     await prisma.address.create({
       data: {
-        userId: user.id, // Asocia la dirección al usuario
+        userId: user.id,
         street: address,
         locality,
         province,
         postalCode,
-        isPrimary: true, // Marca como dirección principal
+        isPrimary: true,
       },
     });
 
-    // Crear token de verificación en la tabla `VerificationToken`
+    // Crear token de verificación
     await prisma.verificationToken.create({
       data: {
-        identifier: user.email, // Usa el email como identificador
+        identifier: user.email,
         token: verificationToken,
         expires: tokenExpires,
       },

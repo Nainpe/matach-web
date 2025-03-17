@@ -13,7 +13,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import 'swiper/css/autoplay';
-import { Product, ProductImage } from '@/types';
+import { Product, ProductImage } from '../../../../types';
 
 interface ProductGalleryMobileProps {
   product: Product;

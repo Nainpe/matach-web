@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-hot-toast'; 
-import { useShippingStore } from '@/store/shippingStore';
 import styles from './ShippingForm.module.css';
+import { useShippingStore } from '../../../store/shippingStore';
 
 type FormData = {
   firstName: string;

@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useModalStore } from '@/store/modalStore';
 import styles from './PasswordResetModal.module.css';
 import { FaRegTimesCircle } from 'react-icons/fa';
-import { verifyToken } from '@/actions/auth/verifyToken';
-import { resetPassword } from '@/actions/auth/resetPassword';
-import { sendForgotPasswordEmail } from '@/actions/auth/sendForgotPasswordEmail';
 import Link from 'next/link';
+import { useModalStore } from '../../../store/modalStore';
+import { sendForgotPasswordEmail } from '../../../actions/auth/sendForgotPasswordEmail';
+import { verifyToken } from '../../../actions/auth/verifyToken';
+import { resetPassword } from '../../../actions/auth/resetPassword';
 
 export default function PasswordResetModal() {
   const router = useRouter();

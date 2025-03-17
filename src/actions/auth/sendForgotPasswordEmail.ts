@@ -1,8 +1,9 @@
 'use server';
 
-import prisma from '@/lib/prisma';
-import { sendMail } from '@/lib/mail';
+
 import { randomBytes } from 'crypto';
+import prisma from '../../lib/prisma';
+import { sendMail } from '../../lib/mail';
 
 export async function sendForgotPasswordEmail(email: string) {
   const user = await prisma.user.findUnique({

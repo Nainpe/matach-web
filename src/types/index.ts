@@ -55,6 +55,28 @@ export interface Filter {
   categoria?: string;
 }
 
+export interface ServerToClientEvents {
+  noArg: () => void;
+  basicEmit: (a: number, b: string, c: Buffer) => void;
+  withAck: (d: string, callback: (e: number) => void) => void;
+  pong: () => void;
+  adminNotification: (notification: { type: string; message: string; data: unknown }) => void; // Cambiado `any` por `unknown`
+  newOrder: (orderData: { orderId: string; totalPrice: number; status: string }) => void;
+}
+
+export interface ClientToServerEvents {
+  hello: () => void;
+  ping: () => void;
+  newOrder: (orderData: { orderId: string; totalPrice: number; status: string }) => void;
+}
+
+// Añadir este tipo si no lo has definido previamente
+export interface Notification {
+  type: string;
+  message: string;
+  data?: unknown;  // Cambiado `any` por `unknown`
+}
+
 export type SwiperInstance = SwiperType | null;
 
 export type ErrorType = 'CredentialsSignin' | 'UnknownError' | 'EmailNotVerified';

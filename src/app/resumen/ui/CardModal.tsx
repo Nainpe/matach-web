@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CardModal.module.css';
-import { useCardModalStore } from '@/store/cardModalStore';
+import { useCardModalStore } from '../../../store/cardModalStore';
 
 
 interface InstallmentOption {

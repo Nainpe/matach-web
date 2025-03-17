@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './ProfileSidebar.module.css';
 import Link from 'next/link';
-import { getUserData } from '@/actions/perfil/getUserDetails';
-import { logout } from '@/actions/auth/logout';
+import { getUserData } from '../../../actions/perfil/getUserDetails';
+import { logout } from '../../../actions/auth/logout';
+
 
 const ProfileSidebar: React.FC = () => {
   const { data: session } = useSession();

@@ -4,10 +4,9 @@ import { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Laptop, Facebook, Twitter } from 'lucide-react';
 import styles from './Login.module.css';
-import { authenticate } from '@/actions/auth/login';
-import { useRouter } from 'next/dist/client/components/navigation';
 import PasswordResetModal from './PasswordResetModal';
-import { useModalStore } from '@/store/modalStore';
+import { useModalStore } from '../../../store/modalStore';
+import { authenticate } from '../../../actions/auth/login';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

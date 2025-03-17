@@ -1,15 +1,15 @@
 import { PrismaClient } from '@prisma/client';
-import ProductGallery from '@/app/components/ui/ProductGallery';
-import { Navbar } from '@/app/components/ui/Navbar';
-import Breadcrumbs from '@/app/components/ui/breadcrumbs/Breadcrumbs';
-import Footer from '@/app/components/ui/Footer';
-import AddToCartSection from '@/app/components/ui/AddToCarSection/AddToCarSection';
-import ProductDetails from '@/app/components/ui/ProductDetails/ProductDetails';
-import CardPayment from '@/app/components/ui/card-payment/page';
-import CarruselItem from '@/app/components/ui/CarouselItem/CarouselItem';
-import ProductGalleryMobile from '@/app/components/ui/product-gallery/ProductGalleryMobile';
-import MobileNavbar from '@/app/components/ui/MobileNavbar/MobileNavbar';
+
 import { TbTruckDelivery } from "react-icons/tb";
+import MobileNavbar from '../../components/ui/MobileNavbar/MobileNavbar';
+import { Navbar } from '../../components/ui/Navbar';
+import Breadcrumbs from '../../components/ui/breadcrumbs/Breadcrumbs';
+import ProductGallery from '../../components/ui/ProductGallery';
+import ProductGalleryMobile from '../../components/ui/product-gallery/ProductGalleryMobile';
+import AddToCartSection from '../../components/ui/AddToCarSection/AddToCarSection';
+import ProductDetails from '../../components/ui/ProductDetails/ProductDetails';
+import CarruselItem from '../../components/ui/CarouselItem/CarouselItem';
+import Footer from '../../components/ui/Footer';
 
 
 const prisma = new PrismaClient();
@@ -39,7 +39,10 @@ const formatPrice = (price: number): string => {
   }).format(price);
 };
 
-const ProductPage = async ({ params }: { params: { slug: string } }) => {
+type Params = Promise<{ slug: string }>;
+
+
+export default async function ProductPage({ params }: { params: Params }) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
 
@@ -117,7 +120,6 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
 
           <hr className="divider" />
           
-          <CardPayment />
           <div className='product-container-buy'>
             <div className='delivery-info'>
 
@@ -150,6 +152,4 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
       </main>
     </div>
   );
-};
-
-export default ProductPage;
+}

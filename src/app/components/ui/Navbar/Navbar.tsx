@@ -7,13 +7,13 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import styles from './Navbar.module.css'
 import { ShoppingCart, User, Search, ChevronDown } from 'lucide-react'
-import { useCartStore } from '@/store/cartStore'
-import { useUserMenuStore } from '@/store/UseMenuStore'
 import { GoSignOut } from 'react-icons/go'
 import { FaUserAlt } from 'react-icons/fa'
 import { FiLogIn } from 'react-icons/fi'
 import { RiUserAddLine } from 'react-icons/ri'
-import { logout } from '@/actions/auth/logout'
+import { useUserMenuStore } from "../../../../store/UseMenuStore"
+import { useCartStore } from "../../../../store/cartStore"
+import { logout } from "../../../../actions/auth/logout"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

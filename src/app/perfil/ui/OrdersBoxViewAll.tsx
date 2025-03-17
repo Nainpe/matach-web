@@ -5,17 +5,27 @@ import Link from 'next/link';
 import { PiPackage } from 'react-icons/pi';
 import { useSession } from 'next-auth/react';
 import styles from './OrdersBoxViewAll.module.css';
-import { fetchUserOrders } from '@/actions/perfil/orderuser';
+import { fetchUserOrders } from '../../../actions/perfil/orderuser';
+
+// Interface para el tipo de dato de las órdenes
+interface OrderType {
+  id: string;
+  status: 'PENDING' | 'APPROVED' | 'CANCELLED' | 'DELIVERED';
+  createdAt: string;
+}
 
 const OrdersBoxViewAll: React.FC = () => {
   const { data: session } = useSession();
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<OrderType[]>([]);
 
   useEffect(() => {
     const loadOrders = async () => {
       if (session?.user?.id) {
         const userOrders = await fetchUserOrders(session.user.id);
-        setOrders(userOrders); // Carga todas las órdenes sin límite.
+        setOrders(userOrders.map(order => ({
+          ...order,
+          createdAt: order.createdAt.toString()
+        }))); 
       }
     };
     loadOrders();

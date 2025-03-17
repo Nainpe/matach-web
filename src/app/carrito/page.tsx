@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers';
-import prisma from '@/lib/prisma';
 import CartSummary from '../components/ui/CartSummary/CartSummary';
 import { Navbar } from '../components/ui/Navbar';
-import { CartProduct } from '@/types';
 import MobileNavbar from '../components/ui/MobileNavbar/MobileNavbar';
 import Footer from '../components/ui/Footer';
 import MobileCartSummary from '../components/ui/MobileCartSummary/MobileCartSummary';
+import { CartProduct } from '../../types';
+import prisma from '../../lib/prisma';
 
 const Carrito = async () => {
   const cartCookie = (await cookies()).get('cart');

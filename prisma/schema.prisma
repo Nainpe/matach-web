@@ -165,7 +165,7 @@ model User {
   name              String?
   dni               String
   email             String    @unique
-  emailVerified     Boolean   @default(false)
+  emailVerified     DateTime?
   accounts          Account[]
   sessions          Session[]
   purchasedProducts Sale[]
@@ -219,8 +219,8 @@ model Order {
   userId          String
   user            User            @relation(fields: [userId], references: [id])
   products        OrderProduct[] 
-  status          OrderStatus     @default(PENDING) // Ahora representa la preparación del pedido
-  deliveryStatus  DeliveryStatus  @default(PENDING) // Nuevo estado de entrega
+  status          OrderStatus     @default(PENDING)
+  deliveryStatus  DeliveryStatus  @default(PENDING)
   totalPrice      Float           @default(0)
   shippingAddress String     
   address         OrderAddress?   
@@ -233,10 +233,10 @@ model Order {
   paymentDetails  Json?          
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
-
   payment         Payment?        @relation 
+  isStarred       Boolean?        @default(false)
+  cancellationReason String?
 }
-
 
 model OrderProduct {
   id        String   @id @default(cuid())
@@ -285,3 +285,11 @@ model Payment {
   transferProof   String?    // Comprobante de transferencia (puede ser URL o ruta del archivo)
   order           Order      @relation(fields: [orderId], references: [id]) // Relación definida aquí
 } 
+
+model Notification {
+  id        String   @id @default(cuid())
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

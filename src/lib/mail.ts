@@ -1,15 +1,20 @@
-
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465, // Usar el puerto seguro para TLS
-  secure: true, // Asegurarse de usar TLS
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+
+// Función para manejar errores desconocidos
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) return error.message;
+  return "Error desconocido al enviar el correo";
+};
 
 /**
  * Función genérica para enviar correos.
@@ -26,7 +31,7 @@ export const sendMail = async (to: string, subject: string, html: string) => {
       html,
     });
     console.log("Correo enviado:", info.messageId);
-  } catch (error: any) {
-    console.error("Error enviando el correo:", error.message);
+  } catch (error) {
+    console.error("Error enviando el correo:", getErrorMessage(error));
   }
 };

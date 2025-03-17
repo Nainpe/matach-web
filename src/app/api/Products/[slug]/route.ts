@@ -16,9 +16,12 @@ interface Producto {
   tags: { tagId: string }[];
 }
 
-export async function GET(req: Request, { params }: { params: { slug: string } }) {
+type Params = Promise<{ slug: string }>;
+
+
+export async function GET(req: Request,{ params }: { params: Params }) {
   try {
-    if (!params.slug) {
+    if (!(await params).slug) {
       return NextResponse.json({ error: 'Se requiere el slug' }, { status: 400 });
     }
 
@@ -28,7 +31,7 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
     const precioMax = searchParams.get('precioMax');
 
     const product = await prisma.product.findUnique({
-      where: { slug: params.slug },
+      where: { slug: (await params).slug },
       include: {
         brand: true,
         category: true,

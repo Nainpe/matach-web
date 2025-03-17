@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  gap: 0.25rem; /* Reduce el espacio entre elementos */
+  margin-top: 1rem;
+}
+
+.warningText {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0; /* Elimina margen del párrafo */
+}
+
+.cancelButton {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  padding: 0; 
+  display: inline; 
+font-family:'Outfit', sans-serif;
+}
+
+.cancelButton:hover {
+  color: #b91c1c;
+  text-decoration: underline;
+}

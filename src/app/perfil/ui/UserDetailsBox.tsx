@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import styles from './UserDetailsBox.module.css';
-import { getUserData } from '@/actions/perfil/getUserDetails';
+
 import Link from 'next/link';
+import { getUserData } from '../../../actions/perfil/getUserDetails';
 
 interface Address {
   street: string;

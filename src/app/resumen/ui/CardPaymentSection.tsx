@@ -3,12 +3,12 @@
 import React from 'react';
 import styles from './CardPaymentSection.module.css';
 import { FaRegCreditCard } from 'react-icons/fa';
-import { useCardModalStore } from '@/store/cardModalStore';
-import CardModal from '@/app/resumen/ui/CardModal';
 import Image from 'next/image';
+import { useCardModalStore } from '../../../store/cardModalStore';
+import CardModal from './CardModal';
 
 export default function CardPaymentSection() {
-  const { openModal } = useCardModalStore(); // Extrae la función para abrir el modal
+  const { openModal } = useCardModalStore(); 
 
   const installmentOptions = [
     { months: 3, amount: 3666.67, hasInterest: true },

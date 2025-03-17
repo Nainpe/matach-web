@@ -1,11 +1,11 @@
 'use client';
 
 import Image from 'next/image'; // Importa el componente Image de Next.js
-import { useCartStore } from '@/store/cartStore';
-import { CartProduct } from '@/types';
 import styles from './ResumenPedido.module.css';
 import TotalBox from './TotalBox';
 import ShippingForm from './ShippingForm';
+import { useCartStore } from '../../../store/cartStore';
+import { CartProduct } from '../../../types';
 
 const ResumenPedido = () => {
   const cartItems: CartProduct[] = useCartStore((state) => state.cartItems);

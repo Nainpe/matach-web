@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'; // Importar toaster
-import { useCartStore } from '@/store/cartStore'
 import styles from './AddToCartSection.module.css'
+import { useCartStore } from '../../../../store/cartStore';
 
 interface AddToCartSectionProps {
   productId: string

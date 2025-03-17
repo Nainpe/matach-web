@@ -1,7 +1,7 @@
 'use server';
 
-import { signIn } from '@/auth.config'; // Asegúrate de que esta función esté configurada correctamente.
 import { AuthError } from 'next-auth';
+import { signIn } from '../../auth.config';
 
 export async function authenticate(
   prevState: string | undefined,

@@ -1,6 +1,7 @@
 'use server';
 
-import { sendMail } from "@/lib/mail";
+import { sendMail } from "../../lib/mail";
+
 
 /**
  * Enviar un correo de verificación al usuario.

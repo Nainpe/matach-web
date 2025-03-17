@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useMenuStore } from '@/store/menuStore';
 import styles from './SideMenu.module.css';
-import Link from 'next/link'; // Asegúrate de importar el componente Link
+import Link from 'next/link'; 
+import { useMenuStore } from '../../../../store/menuStore';
 
 export default function Component() {
   const { isMenuOpen, toggleMenu } = useMenuStore();

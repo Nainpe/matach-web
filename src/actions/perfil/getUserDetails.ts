@@ -1,7 +1,9 @@
 'use server'
 
-import prisma from "@/lib/prisma"
-import { auth } from "@/auth.config"
+import { auth } from "../../auth.config"
+import prisma from "../../lib/prisma"
+
+
 
 export async function getUserData() {
   const session = await auth()

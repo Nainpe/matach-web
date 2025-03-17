@@ -6,22 +6,29 @@ import { PiPackage } from 'react-icons/pi';
 import { LuShoppingBag } from "react-icons/lu";
 import { useSession } from 'next-auth/react';
 import styles from './OrdersBox.module.css';
-import { fetchUserOrders } from '@/actions/perfil/orderuser';
+import { fetchUserOrders } from '../../../actions/perfil/orderuser';
+
+interface Order {
+  id: string;
+  createdAt: Date; // Cambiar de string a Date
+  status: 'PENDING' | 'APPROVED' | 'CANCELLED' | 'DELIVERED';
+}
 
 const OrdersBox: React.FC = () => {
   const { data: session } = useSession();
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [activeOrder, setActiveOrder] = useState<string | null>(null);
 
   useEffect(() => {
     const loadOrders = async () => {
       if (session?.user?.id) {
         const userOrders = await fetchUserOrders(session.user.id);
-
-        // Ordena las órdenes por la fecha de creación más reciente
+        
         const sortedOrders = userOrders
-          .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-          .slice(0, 4); // Limita a las 4 órdenes más recientes
+          .sort((a: Order, b: Order) => 
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .slice(0, 4);
           
         setOrders(sortedOrders);
       }
@@ -37,7 +44,7 @@ const OrdersBox: React.FC = () => {
     return (
       <div className={styles.noOrdersContainer}>
         <div className={styles.noOrdersIcon}>
-        <LuShoppingBag size={60} />
+          <LuShoppingBag size={60} />
         </div>
         <h2 className={styles.noOrdersTitle}>Aún no tienes órdenes</h2>
         <p className={styles.noOrdersText}>
@@ -88,7 +95,6 @@ const OrdersBox: React.FC = () => {
         </Link>
       ))}
 
-      {/* Botón para ver todas las órdenes */}
       <Link href="/perfil/Mispedidos" className={styles.allOrdersButton}>
         Ver todas las órdenes
       </Link>
