@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 import prisma from '../../../lib/prisma';
 import Footer from '../../components/ui/Footer';
 import MobileNavbar from '../../components/ui/MobileNavbar/MobileNavbar';
@@ -9,6 +10,9 @@ type Params = Promise<{ searchTerm: string }>;
 
 
 export default async function SearchPage({ params }: { params: Params }) {
+=======
+export default async function SearchPage({ params }: { params: { searchTerm: string } }) {
+>>>>>>> e1fe31e93aca75413bcc1ba93d13a974cca76b80
   const products = await prisma.product.findMany({
     where: {
       OR: [
