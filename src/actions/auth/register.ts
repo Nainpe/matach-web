@@ -87,7 +87,7 @@ export const registerUser = async (
     }
 
     return { ok: true, user: result };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error completo:", error);
     
     // Manejar errores específicos de Prisma

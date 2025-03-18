@@ -78,13 +78,14 @@ export const authConfig: NextAuthConfig = {
 
         const primaryAddress = user.addresses[0];
 
+        
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password: _password, addresses: _addresses, ...userData } = user;
 
         return {
           ...userData,
           address: primaryAddress?.street || "",
           postalCode: primaryAddress?.postalCode || "",
-          // Return Date objects directly; JWT will serialize to string
           createdAt: userData.createdAt,
           emailVerified: userData.emailVerified,
         } as unknown as User;
