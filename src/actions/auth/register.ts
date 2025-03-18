@@ -4,6 +4,7 @@ import { randomBytes } from "crypto";
 import bcryptjs from "bcryptjs";
 import { sendVerificationEmail } from "./sendVerificationEmail";
 import prisma from "../../lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export const registerUser = async (
   email: string,
@@ -20,12 +21,13 @@ export const registerUser = async (
   const verificationToken = randomBytes(32).toString("hex");
   const tokenExpires = new Date(Date.now() + 1000 * 60 * 60 * 24);
 
-  // Validación adicional
+  // Validación de DNI
   const dniRegex = /^\d{8}[A-Za-z]$/;
   if (!dniRegex.test(dni)) {
     return { ok: false, message: "Formato de DNI inválido" };
   }
 
+  // Validación de teléfono
   if (phoneNumber.length < 9) {
     return { ok: false, message: "Número de teléfono debe tener al menos 9 dígitos" };
   }
@@ -39,7 +41,7 @@ export const registerUser = async (
       return { ok: false, message: "El correo electrónico ya está registrado." };
     }
 
-    // Usar transacción para operaciones atómicas
+    // Transacción
     const result = await prisma.$transaction(async (prisma) => {
       const user = await prisma.user.create({
         data: {
@@ -77,33 +79,35 @@ export const registerUser = async (
       return user;
     });
 
-    // Enviar email fuera de la transacción
-    try {
-      await sendVerificationEmail(result.email, verificationToken);
-    } catch (emailError) {
-      console.error("Error enviando email:", emailError);
+    // Envío de email con manejo de errores
+    const emailResult = await sendVerificationEmail(result.email, verificationToken);
+    if (!emailResult.ok) {
       await prisma.user.delete({ where: { id: result.id } });
-      return { ok: false, message: "Error enviando email de verificación" };
+      return emailResult;
     }
 
     return { ok: true, user: result };
+
   } catch (error: unknown) {
-    console.error("Error completo:", error);
-    
-    // Manejar errores específicos de Prisma
-    if (error.code === 'P2002') {
-      const field = error.meta?.target?.[0];
-      return { 
-        ok: false, 
-        message: field 
-          ? `El ${field} ya está registrado` 
-          : "Registro duplicado" 
-      };
+    // Manejo tipado de errores
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2002') {
+        const field = error.meta?.target?.[0];
+        return { 
+          ok: false, 
+          message: field 
+            ? `El ${field} ya está registrado` 
+            : "Registro duplicado" 
+        };
+      }
     }
     
+    // Error genérico
     return { 
       ok: false, 
-      message: error.message || "Error durante el registro" 
+      message: error instanceof Error 
+        ? error.message 
+        : "Error durante el registro" 
     };
   }
 };
