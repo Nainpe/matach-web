@@ -1,3 +1,5 @@
+// src/auth.config.ts
+
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -19,8 +21,8 @@ type User = {
   email: string;
   emailVerified: Date | null;
   createdAt: Date;
-  address?: string; // Campo derivado de Address
-  postalCode?: string; // Campo derivado de Address
+  address?: string;
+  postalCode?: string;
 };
 
 export const authConfig: NextAuthConfig = {
@@ -58,7 +60,6 @@ export const authConfig: NextAuthConfig = {
 
         const { email, password } = parsedCredentials.data;
 
-        // Buscar usuario con su dirección principal
         const user = await prisma.user.findUnique({
           where: { email },
           include: {
@@ -71,25 +72,21 @@ export const authConfig: NextAuthConfig = {
 
         if (!user) return null;
 
-        // Verificar si el correo está verificado
         if (!user.emailVerified) throw new Error("Email no verificado");
 
-        // Comparar la contraseña
         if (!bcryptjs.compareSync(password, user.password)) return null;
 
-        // Obtener dirección principal
         const primaryAddress = user.addresses[0];
 
-        // Desestructuración con variables no usadas (ignorar warnings)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password: _password, addresses: _addresses, ...userData } = user;
 
         return {
           ...userData,
           address: primaryAddress?.street || "",
           postalCode: primaryAddress?.postalCode || "",
-          createdAt: userData.createdAt.toISOString(),
-          emailVerified: userData.emailVerified?.toISOString() || null,
+          // Return Date objects directly; JWT will serialize to string
+          createdAt: userData.createdAt,
+          emailVerified: userData.emailVerified,
         } as unknown as User;
       },
     }),
