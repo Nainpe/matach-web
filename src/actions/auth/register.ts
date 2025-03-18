@@ -21,13 +21,12 @@ export const registerUser = async (
   const verificationToken = randomBytes(32).toString("hex");
   const tokenExpires = new Date(Date.now() + 1000 * 60 * 60 * 24);
 
-  // Validación de DNI
+  // Validaciones
   const dniRegex = /^\d{8}[A-Za-z]$/;
   if (!dniRegex.test(dni)) {
     return { ok: false, message: "Formato de DNI inválido" };
   }
 
-  // Validación de teléfono
   if (phoneNumber.length < 9) {
     return { ok: false, message: "Número de teléfono debe tener al menos 9 dígitos" };
   }
@@ -80,16 +79,20 @@ export const registerUser = async (
     });
 
     // Envío de email con manejo de errores
-    const emailResult = await sendVerificationEmail(result.email, verificationToken);
-    if (!emailResult.ok) {
+    try {
+      await sendVerificationEmail(result.email, verificationToken);
+    } catch (error) {
       await prisma.user.delete({ where: { id: result.id } });
-      return emailResult;
+      return { 
+        ok: false, 
+        message: "Error enviando email de verificación" 
+      };
     }
 
     return { ok: true, user: result };
 
   } catch (error: unknown) {
-    // Manejo tipado de errores
+    // Manejo de errores de Prisma
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === 'P2002') {
         const field = error.meta?.target?.[0];
